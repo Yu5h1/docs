@@ -9,6 +9,7 @@ export const STATUS_META = Object.freeze({
 });
 
 const ID_PATTERN = /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/;
+const PUBLIC_REPORT_ROOT = "../reports";
 
 export function validateScopeCatalog(catalog) {
   if (!catalog || typeof catalog !== "object" || Array.isArray(catalog)) {
@@ -40,7 +41,7 @@ export function buildScopeHref(scope, developer = false) {
     throw new Error("scope 無效。");
   }
   const params = new URLSearchParams({ scope });
-  if (developer) params.set("dev", `reports/${scope}/report.dev.json`);
+  if (developer) params.set("dev", `${PUBLIC_REPORT_ROOT}/${scope}/report.dev.json`);
   return `?${params}`;
 }
 
@@ -57,7 +58,7 @@ export function resolveReportRequest(params) {
   }
   return {
     source: "scope",
-    reportSource: `reports/${scope}/report.json`,
+    reportSource: `${PUBLIC_REPORT_ROOT}/${scope}/report.json`,
     scope,
   };
 }
