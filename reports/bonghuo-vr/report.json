@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "report_id": "bonghuo-vr-progress",
+  "scope_id": "bonghuo-vr",
+  "title": "《磺港蹦火》VR 互動動畫開發進度",
+  "updated_at": "2026-07-21T23:44:23+08:00",
+  "tasks": [
+    {
+      "id": "storyboard-full-experience",
+      "title": "PC／Meta 完整流程驗收",
+      "status": "in_progress",
+      "summary": "目前版本以 PC 運行並使用 Meta 渲染。人物已放入，整體流程已能從頭到尾跑完一次；重新啟動後再完整跑完一次即完成本階段。",
+      "completed_items": [
+        "PC／Meta 渲染環境可運行",
+        "人物已配置至體驗流程",
+        "整體流程已完整跑完一次"
+      ],
+      "pending_items": [
+        "從初始狀態重新啟動並完整跑完流程一次"
+      ],
+      "progress": {
+        "completed": 1,
+        "total": 2
+      }
+    },
+    {
+      "id": "art-presentation",
+      "title": "美術表現",
+      "status": "planned",
+      "summary": "集中處理捕魚演出、船體、火焰、水流與海面的視覺及動態表現。",
+      "pending_items": [
+        "漁網特效與漁網的物理變化",
+        "探照燈特效",
+        "鏟冰特效",
+        "倒魚特效",
+        "船體上下晃動",
+        "點火特效膨脹",
+        "水管出水特效",
+        "加大波浪",
+        "魚群跳出效果",
+        "魚群被撈效果"
+      ],
+      "progress": {
+        "completed": 0,
+        "total": 10
+      }
+    },
+    {
+      "id": "interaction-presentation",
+      "title": "三個指向目標的共用互動呈現",
+      "status": "done",
+      "summary": "魚群、乙炔桶與右舷捕魚三個目標已共用同一套指向提示、選取說明與 UnityEvent 動作，僅由各目標提供不同資料。",
+      "completed_items": [
+        "方向指示箭頭支援 World 與 Screen 模式",
+        "Hover 停留提示與 Fresnel 邊框淡入淡出",
+        "以字幕同時承擔說明內容，取消獨立說明面板",
+        "三個目標共用 UnityEvent action，執行時覆寫各自參數"
+      ],
+      "progress": {
+        "completed": 3,
+        "total": 3
+      }
+    },
+    {
+      "id": "fishing-performance",
+      "title": "蹦火捕魚流程",
+      "status": "done",
+      "summary": "點火、魚群聚光與撒網、收網、入艙的主要流程已接入目前可完整運行的體驗。",
+      "completed_items": [
+        "六段點火程序動畫",
+        "大量魚群趨光聚集",
+        "主火焰強光爆亮",
+        "撒網、收網、入艙動作時序片段"
+      ]
+    },
+    {
+      "id": "character-performance",
+      "title": "人物配置與流程整合",
+      "status": "done",
+      "summary": "人物已放入目前的場景與演出流程，並隨整體流程完成一次端到端運行。",
+      "completed_items": [
+        "人物已配置至場景與流程",
+        "含人物的完整流程已跑完一次"
+      ]
+    },
+    {
+      "id": "night-sea-environment",
+      "title": "夜海環境基礎",
+      "status": "done",
+      "summary": "核心夜間海上場景的主要環境元素已建立，可支撐蹦火段落的視覺呈現。",
+      "completed_items": [
+        "Crest 海面",
+        "月光照明",
+        "夜間霧效",
+        "火光海面反射",
+        "星空 HDRI"
+      ],
+      "progress": {
+        "completed": 5,
+        "total": 5
+      }
+    }
+  ]
+}

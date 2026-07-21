@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TaskProgress Viewer — 以唯讀、可分享連結呈現專案與 Agent scope 的任務進展。"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; img-src 'self' data:; base-uri 'none'; form-action 'none'"
+    />
+    <title>TaskProgress Viewer</title>
+    <script src="assets/theme-bootstrap.js"></script>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script type="module" src="assets/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="TaskProgress Viewer 首頁">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>TaskProgress</span>
+        </a>
+        <div class="header-actions">
+          <div class="mode-badge" id="mode-badge" hidden>Developer overlay</div>
+          <label class="theme-picker" for="theme-select">
+            <span>主題</span>
+            <select id="theme-select" aria-label="顯示主題">
+              <option value="system">系統選擇</option>
+              <option value="light">亮色</option>
+              <option value="dark">暗色</option>
+              <option value="custom">自訂…</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <dialog class="theme-dialog" id="theme-dialog" aria-labelledby="theme-dialog-title">
+        <div class="theme-dialog-heading">
+          <div>
+            <p class="section-kicker">Custom theme</p>
+            <h2 id="theme-dialog-title">自訂 Viewer 顏色</h2>
+          </div>
+          <button class="theme-close" id="theme-close" type="button" aria-label="關閉自訂主題">×</button>
+        </div>
+        <p class="theme-dialog-description">
+          選擇基底後調整主要介面顏色；任務狀態色會沿用基底，保持完成、進行中與受阻容易辨識。
+        </p>
+        <label class="theme-base-field" for="theme-custom-base">
+          <span>狀態色基底</span>
+          <select id="theme-custom-base">
+            <option value="light">亮色基底</option>
+            <option value="dark">暗色基底</option>
+          </select>
+        </label>
+        <div class="theme-color-fields" id="theme-color-fields"></div>
+        <p class="theme-dialog-status" id="theme-dialog-status" aria-live="polite"></p>
+        <div class="theme-dialog-actions">
+          <button class="secondary-button" id="theme-reset" type="button">恢復基底預設</button>
+          <span class="theme-dialog-action-spacer"></span>
+          <button class="secondary-button" id="theme-cancel" type="button">取消</button>
+          <button class="primary-button" id="theme-apply" type="button">套用自訂主題</button>
+        </div>
+      </dialog>
+
+      <main id="main-content">
+        <section class="hero" aria-labelledby="report-title">
+          <div>
+            <p class="eyebrow" id="scope-label">唯讀任務報告</p>
+            <h1 id="report-title">正在載入報告…</h1>
+            <p class="hero-summary" id="report-summary">資料會由目前連結自動載入。</p>
+          </div>
+          <dl class="report-meta" id="report-meta" hidden>
+            <div>
+              <dt>最後更新</dt>
+              <dd id="updated-at">—</dd>
+            </div>
+            <div>
+              <dt>Report ID</dt>
+              <dd id="report-id">—</dd>
+            </div>
+          </dl>
+          <div class="project-progress" id="project-progress" hidden>
+            <div class="project-progress-label">
+              <strong id="project-progress-value">整體約 0%</strong>
+            </div>
+            <progress
+              class="project-progress-meter"
+              id="project-progress-meter"
+              max="100"
+              value="0"
+              aria-label="整體進度 0%"
+            ></progress>
+          </div>
+        </section>
+
+        <section class="diagnostics" id="diagnostics" aria-live="polite" hidden></section>
+
+        <section id="report-content" hidden>
+          <div class="overview-grid" id="overview-grid" aria-label="報告摘要"></div>
+
+          <div class="task-toolbar">
+            <p class="section-kicker">工作項目</p>
+            <div class="filters" id="status-filters" aria-label="依狀態篩選"></div>
+          </div>
+
+          <div class="task-list" id="task-list"></div>
+          <p class="empty-state" id="empty-state" hidden>這個篩選條件下沒有任務。</p>
+        </section>
+
+        <section class="start-panel" id="start-panel" hidden>
+          <p class="section-kicker" id="start-kicker">Link-first viewer</p>
+          <h2 id="start-title">從報告連結開始</h2>
+          <p id="start-description">
+            公開報告可用 <code>?scope=</code> 指定固定目錄；也可用 <code>?report=</code>
+            指定完整報告路徑。需要內部細節時，再加入選用的 <code>&amp;dev=</code>。
+          </p>
+          <a
+            class="primary-link"
+            id="example-link"
+            href="?scope=example"
+          >
+            開啟 scope 範例
+          </a>
+          <div class="scope-directory" id="scope-directory" aria-label="已註冊的 Scope" hidden></div>
+        </section>
+      </main>
+
+      <footer>
+        <span>TaskProgress Viewer</span>
+        <span>Viewer is read-only</span>
+      </footer>
+    </div>
+  </body>
+</html>
