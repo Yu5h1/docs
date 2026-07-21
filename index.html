@@ -9,7 +9,13 @@
       (() => {
         const params = new URLSearchParams(window.location.search);
         if (params.has("scope") || params.has("report") || params.has("dev")) {
-          window.location.replace(`task-progress/${window.location.search}${window.location.hash}`);
+          for (const name of ["report", "dev"]) {
+            const value = params.get(name);
+            if (value?.startsWith("reports/")) {
+              params.set(name, `../${value}`);
+            }
+          }
+          window.location.replace(`task-progress/?${params}${window.location.hash}`);
         }
       })();
     </script>

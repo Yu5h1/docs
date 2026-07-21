@@ -1,0 +1,3 @@
+[submodule "vendor/task-progress"]
+	path = vendor/task-progress
+	url = https://github.com/Yu5h1/TaskProgress.git

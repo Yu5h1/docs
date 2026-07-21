@@ -1,0 +1,76 @@
+name: Deploy docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs and TaskProgress
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Assemble public site
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p _site/task-progress
+          cp index.html _site/index.html
+          cp -a reports _site/reports
+          cp vendor/task-progress/viewer/index.html _site/task-progress/index.html
+          cp -a vendor/task-progress/viewer/assets _site/task-progress/assets
+
+          if [[ -d pages ]]; then
+            cp -a pages _site/pages
+          fi
+
+          touch _site/.nojekyll
+
+      - name: Validate public artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f _site/index.html
+          test -f _site/task-progress/index.html
+          test -f _site/task-progress/assets/app.js
+          test -f _site/task-progress/assets/report-model.js
+          test -f _site/reports/bonghuo-vr/report.json
+          grep -Fq '../reports/' _site/task-progress/assets/report-model.js
+
+          forbidden_file=$(find _site -type f \( -name '*.cs' -o -name '*.csproj' -o -name '*.exe' -o -name 'report.dev.json' \) -print -quit)
+          if [[ -n "$forbidden_file" ]]; then
+            echo "Forbidden deployment file: $forbidden_file" >&2
+            exit 1
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
