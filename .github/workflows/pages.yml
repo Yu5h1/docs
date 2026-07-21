@@ -4,7 +4,15 @@ on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types:
+      - task-progress-viewer-updated
   workflow_dispatch:
+    inputs:
+      viewer_ref:
+        description: TaskProgress branch, tag, or commit SHA
+        required: false
+        default: main
 
 permissions:
   contents: read
@@ -23,21 +31,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout docs and TaskProgress
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Checkout TaskProgress Viewer
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          repository: Yu5h1/TaskProgress
+          ref: ${{ github.event.client_payload.sha || inputs.viewer_ref || 'main' }}
+          path: _task-progress
+          sparse-checkout: |
+            /viewer/
+          sparse-checkout-cone-mode: false
 
       - name: Assemble public site
         shell: bash
         run: |
           set -euo pipefail
 
+          unexpected_source=$(find _task-progress -mindepth 1 -maxdepth 1 \
+            ! -name .git ! -name viewer -print -quit)
+          if [[ -n "$unexpected_source" ]]; then
+            echo "Unexpected TaskProgress checkout content: $unexpected_source" >&2
+            exit 1
+          fi
+
           mkdir -p _site/task-progress
           cp index.html _site/index.html
           cp -a reports _site/reports
-          cp vendor/task-progress/viewer/index.html _site/task-progress/index.html
-          cp -a vendor/task-progress/viewer/assets _site/task-progress/assets
+          cp _task-progress/viewer/index.html _site/task-progress/index.html
+          cp -a _task-progress/viewer/assets _site/task-progress/assets
 
           if [[ -d pages ]]; then
             cp -a pages _site/pages
@@ -57,7 +80,12 @@ jobs:
           test -f _site/reports/bonghuo-vr/report.json
           grep -Fq '../reports/' _site/task-progress/assets/report-model.js
 
-          forbidden_file=$(find _site -type f \( -name '*.cs' -o -name '*.csproj' -o -name '*.exe' -o -name 'report.dev.json' \) -print -quit)
+          forbidden_file=$(find _site -type f \( \
+            -name '*.cs' -o \
+            -name '*.csproj' -o \
+            -name '*.exe' -o \
+            -name 'report.dev.json' \
+          \) -print -quit)
           if [[ -n "$forbidden_file" ]]; then
             echo "Forbidden deployment file: $forbidden_file" >&2
             exit 1
