@@ -1,0 +1,717 @@
+{
+  "schema_version": "0.2",
+  "scope_id": "bonghuo-vr",
+  "analysis_id": "bonghuo-vr-time-analysis-v1",
+  "as_of": "2026-07-24T22:16:32.6031127\u002B08:00",
+  "method": {
+    "name": "deterministic-progress-pressure",
+    "version": "0.2"
+  },
+  "inputs": {
+    "config_updated_at": "2026-07-24T22:15:17\u002B08:00",
+    "estimates_updated_at": "2026-07-24T22:04:17\u002B08:00",
+    "events_updated_at": "2026-07-24T22:16:32.6031127\u002B08:00",
+    "task_state_updated_at": "2026-07-24T20:56:48\u002B08:00"
+  },
+  "summary": {
+    "executor_count": 1,
+    "nominal_daily_capacity_minutes": 480,
+    "execution_calibration": {
+      "factor": 1,
+      "prior_factor": 1,
+      "prior_equivalent_samples": 10,
+      "raw_sample_count": 0,
+      "effective_sample_count": 0,
+      "data_weight": 0,
+      "confidence": "low",
+      "automatic_applied": false
+    },
+    "total_estimated_minutes": 19440,
+    "calibrated_total_minutes": 19440,
+    "actual_recorded_minutes": 0,
+    "estimated_total_days": 40.5,
+    "display_total_days": 41,
+    "overall_confidence": "low",
+    "estimate_composition": {
+      "ai_minutes": 19440,
+      "mixed_minutes": 0,
+      "manual_minutes": 0,
+      "default_minutes": 0
+    },
+    "deadline": {
+      "started_at": "2026-07-24T09:00:00.0000000\u002B08:00",
+      "delivery_at": "2026-08-01T00:00:00.0000000\u002B08:00",
+      "evaluated_at": "2026-07-24T22:16:32.6031127\u002B08:00",
+      "schedule": {
+        "timezone": "Asia/Taipei",
+        "workday_start_local": "09:00",
+        "workday_end_local": "17:00",
+        "risk_thresholds": {
+          "on_track_max": 1.1,
+          "at_risk_max": 1.5
+        },
+        "capacity_profile": {
+          "total_minutes_per_day": 1440,
+          "sleep_minutes_per_day": 480,
+          "life_minutes_per_day": 480,
+          "other_unavailable_minutes_per_day": 0,
+          "capacity_minutes_per_executor_day": 480,
+          "working_weekdays": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "capacity_exceptions": []
+        },
+        "capacity_timeline": [
+          {
+            "date": "2026-07-24",
+            "capacity_minutes": 480
+          },
+          {
+            "date": "2026-07-27",
+            "capacity_minutes": 480
+          },
+          {
+            "date": "2026-07-28",
+            "capacity_minutes": 480
+          },
+          {
+            "date": "2026-07-29",
+            "capacity_minutes": 480
+          },
+          {
+            "date": "2026-07-30",
+            "capacity_minutes": 480
+          },
+          {
+            "date": "2026-07-31",
+            "capacity_minutes": 480
+          }
+        ]
+      },
+      "elapsed_capacity_minutes": 480,
+      "total_capacity_minutes": 2880,
+      "time_progress_ratio": 0.166667,
+      "work_progress_ratio": 0.62069,
+      "boundary_state": "active",
+      "urgency": "on_track",
+      "progress_pressure_ratio": 0.455173
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "storyboard-full-experience",
+      "total_likely_minutes": 2400,
+      "estimated_days": 5,
+      "display_days": 5,
+      "items": [
+        {
+          "estimate_id": "estimate-pc-meta-runtime-v1",
+          "item_id": "pc-meta-runtime",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Unity 6\u3001Meta XR\u3001URP\u3001\u8F38\u5165\u53CA PC \u57F7\u884C\u6574\u5408\u5DE5\u4F5C\u62C6\u89E3\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u62C6\u6210\u5957\u4EF6\u8207\u5E73\u53F0\u8A2D\u5B9A\u3001XR Rig \u8207\u8F38\u5165\u3001\u6E32\u67D3\u76F8\u5BB9\u6027\u53CA\u57F7\u884C\u9A57\u8B49\uFF1B\u7F3A\u5C11\u5BE6\u969B session \u5DE5\u6642\u3002",
+          "low_minutes": 600,
+          "high_minutes": 1440,
+          "reference": "handoff.md \u2014 What it is / Current acceptance"
+        },
+        {
+          "estimate_id": "estimate-characters-integrated-v1",
+          "item_id": "characters-integrated",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u89D2\u8272\u532F\u5165\u3001\u6BD4\u4F8B\u8207\u6750\u8CEA\u3001Animator\uFF0FTimeline \u63A5\u7DDA\u53CA\u5834\u666F\u6821\u6B63\u62C6\u89E3\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u89D2\u8272\u5DF2\u5B8C\u6210\u914D\u7F6E\uFF0C\u4F46\u539F\u59CB\u8CC7\u7522\u54C1\u8CEA\u5DEE\u7570\u53CA\u8FD4\u5DE5\u6B21\u6578\u6C92\u6709\u5DE5\u6642\u7D00\u9304\u3002",
+          "low_minutes": 480,
+          "high_minutes": 1200,
+          "reference": "report.json#characters-integrated"
+        },
+        {
+          "estimate_id": "estimate-full-flow-pass-1-v1",
+          "item_id": "full-flow-pass-1",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u5B8C\u6574\u6D41\u7A0B\u57F7\u884C\u3001\u554F\u984C\u5B9A\u4F4D\u3001\u4FEE\u6B63\u8207\u56DE\u6B78\u9A57\u8B49\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u4F30\u503C\u4EE3\u8868\u9996\u6B21\u7AEF\u5230\u7AEF\u9A57\u6536\u9031\u671F\uFF0C\u800C\u975E\u55AE\u7D14\u64AD\u653E\u6642\u9593\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "handoff.md \u2014 Critical path"
+        },
+        {
+          "estimate_id": "estimate-full-flow-replay-v1",
+          "item_id": "full-flow-replay",
+          "likely_minutes": 240,
+          "display_hours": 4,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u91CD\u555F\u3001\u5168\u6D41\u7A0B\u64CD\u4F5C\u3001\u8A18\u9304\u53CA\u963B\u65B7\u554F\u984C\u56DE\u6B78\u7DE9\u885D\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u7121\u963B\u65B7\u554F\u984C\u6642\u63A5\u8FD1\u4F4E\u503C\uFF1B\u82E5\u9700\u4FEE\u6B63 Timeline \u6216 XR \u72C0\u614B\u5247\u63A5\u8FD1\u9AD8\u503C\u3002",
+          "low_minutes": 120,
+          "high_minutes": 480,
+          "reference": "report.json#full-flow-replay"
+        }
+      ]
+    },
+    {
+      "task_id": "art-presentation",
+      "total_likely_minutes": 6720,
+      "estimated_days": 14,
+      "display_days": 14,
+      "items": [
+        {
+          "estimate_id": "estimate-fishing-net-physics-v1",
+          "item_id": "fishing-net-physics",
+          "likely_minutes": 1440,
+          "display_hours": 24,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u9AA8\u67B6\uFF0FClip \u4E3B\u52D5\u756B\u3001\u6B21\u7D1A Cloth\uFF0F\u7E69\u7D22\u3001\u91CD\u8A2D\u8207 Timeline \u6574\u5408\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "low",
+          "explanation": "\u6F01\u7DB2\u62D3\u6A38\u3001\u9AA8\u67B6\u8207\u73FE\u6709\u52D5\u756B\u53EF\u7528\u7A0B\u5EA6\u5C1A\u672A\u78BA\u8A8D\uFF0C\u662F\u4E3B\u8981\u98A8\u96AA\u3002",
+          "low_minutes": 960,
+          "high_minutes": 2400,
+          "reference": "handoff.md \u2014 Planned art presentation"
+        },
+        {
+          "estimate_id": "estimate-searchlight-vfx-v1",
+          "item_id": "searchlight-vfx",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Spot Light\u3001Cookie\u3001\u9310\u5F62\u9AD4\u7A4D\u6548\u679C\u3001Timeline \u8207 VR \u8996\u89BA\u6E2C\u8A66\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u6280\u8853\u8DEF\u7DDA\u660E\u78BA\uFF1B\u900F\u660E\u6392\u5E8F\u3001\u9727\u8207\u66DD\u5149\u76F8\u5BB9\u6027\u53EF\u80FD\u589E\u52A0\u8ABF\u6821\u6642\u9593\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#searchlight-vfx"
+        },
+        {
+          "estimate_id": "estimate-ice-shoveling-vfx-v1",
+          "item_id": "ice-shoveling-vfx",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u63A5\u89F8\u4E8B\u4EF6\u3001\u6C60\u5316\u51B0\u5C51\u3001\u7532\u677F\u6B98\u7559\u8207 Timeline \u540C\u6B65\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "low",
+          "explanation": "\u93DF\u51B0\u52D5\u4F5C\u8207\u7F8E\u8853\u8CC7\u7522\u898F\u683C\u672A\u78BA\u8A8D\uFF0C\u5148\u4EE5\u4E2D\u7B49\u8907\u96DC\u5EA6\u7279\u6548\u4F30\u7B97\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#ice-shoveling-vfx"
+        },
+        {
+          "estimate_id": "estimate-fish-dumping-vfx-v1",
+          "item_id": "fish-dumping-vfx",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u7269\u4EF6\u6C60\u9B5A\u6A21\u578B\u3001\u843D\u4E0B\u66F2\u7DDA\u3001\u9B5A\u8259\u843D\u9EDE\u8207\u9644\u52A0\u8996\u89BA\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "low",
+          "explanation": "\u9B5A\u6578\u91CF\u3001\u5806\u758A\u9700\u6C42\u8207\u93E1\u982D\u8DDD\u96E2\u672A\u5B9A\uFF0C\u4FDD\u7559\u8F03\u5927\u7BC4\u570D\u3002",
+          "low_minutes": 360,
+          "high_minutes": 1200,
+          "reference": "report.json#fish-dumping-vfx"
+        },
+        {
+          "estimate_id": "estimate-boat-bobbing-v1",
+          "item_id": "boat-bobbing",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Crest \u6C34\u9762\u53D6\u6A23\u3001\u5E73\u6ED1\u59FF\u614B\u3001\u8996\u89BA\u7236\u7269\u4EF6\u8207 XR \u8212\u9069\u5EA6\u9A57\u8B49\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u65E2\u6709\u6D77\u9762\u8207\u8239\u9AD4\u53EF\u91CD\u7528\uFF0C\u4F46 XR \u8212\u9069\u5EA6\u53EF\u80FD\u9700\u8981\u591A\u8F2A\u8ABF\u53C3\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#boat-bobbing"
+        },
+        {
+          "estimate_id": "estimate-ignition-expansion-vfx-v1",
+          "item_id": "ignition-expansion-vfx",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u7C92\u5B50\uFF0FVFX\u3001\u71C8\u5149\u3001Bloom \u8207 Timeline \u66F2\u7DDA\u540C\u6B65\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u65E2\u6709\u706B\u7130\u8207 Timeline \u53EF\u91CD\u7528\uFF1B\u9AD8\u503C\u5305\u542B\u900F\u660E\u8207\u66DD\u5149\u554F\u984C\u4FEE\u6B63\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#ignition-expansion-vfx"
+        },
+        {
+          "estimate_id": "estimate-hose-water-vfx-v1",
+          "item_id": "hose-water-vfx",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u5674\u5634\u5230\u547D\u4E2D\u9EDE\u7684\u6C34\u6D41\u3001\u78B0\u649E\u6C34\u82B1\u3001\u7269\u4EF6\u6C60\u53CA\u6D41\u7A0B\u63A7\u5236\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "low",
+          "explanation": "\u6C34\u7BA1\u52D5\u756B\u3001\u547D\u4E2D\u8868\u9762\u8207\u93E1\u982D\u9700\u6C42\u5C1A\u672A\u78BA\u8A8D\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#hose-water-vfx"
+        },
+        {
+          "estimate_id": "estimate-larger-waves-v1",
+          "item_id": "larger-waves",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Crest \u6CE2\u8B5C\uFF0F\u5C40\u90E8\u8F38\u5165\u3001\u53CD\u5C04\u8868\u73FE\u53CA VR \u8212\u9069\u5EA6\u56DE\u6B78\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u4E0D\u542B\u91CD\u5BEB\u6D77\u6D0B Shader\uFF1B\u82E5\u53EA\u8ABF\u53C3\u53EF\u63A5\u8FD1\u4F4E\u503C\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#larger-waves"
+        },
+        {
+          "estimate_id": "estimate-fish-jump-vfx-v1",
+          "item_id": "fish-jump-vfx",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u9B5A\u7269\u4EF6\u6C60\u3001\u62CB\u7269\u7DDA\uFF0FClip\u3001\u96A8\u6A5F\u5316\u53CA\u6C34\u82B1\u540C\u6B65\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5DF2\u6709\u9B5A\u7FA4\u8CC7\u7522\u8207\u8DA8\u5149\u6D41\u7A0B\uFF0C\u4F46\u8DF3\u8E8D\u5BC6\u5EA6\u53CA\u54C1\u8CEA\u76EE\u6A19\u672A\u78BA\u8A8D\u3002",
+          "low_minutes": 360,
+          "high_minutes": 1200,
+          "reference": "report.json#fish-jump-vfx"
+        },
+        {
+          "estimate_id": "estimate-fish-catch-vfx-v1",
+          "item_id": "fish-catch-vfx",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u9B5A\u7FA4\u5C0E\u5F15\u3001\u6F01\u7DB2\u6355\u7372\u5340\u3001\u72C0\u614B\u5207\u63DB\u3001\u56DE\u6536\u8207 Timeline \u6574\u5408\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "low",
+          "explanation": "\u6F01\u7DB2\u6700\u7D42\u52D5\u614B\u65B9\u6848\u6703\u76F4\u63A5\u5F71\u97FF\u6B64\u9805\u5BE6\u4F5C\u6210\u672C\u3002",
+          "low_minutes": 480,
+          "high_minutes": 1440,
+          "reference": "report.json#fish-catch-vfx"
+        }
+      ]
+    },
+    {
+      "task_id": "interaction-presentation",
+      "total_likely_minutes": 2880,
+      "estimated_days": 6,
+      "display_days": 6,
+      "items": [
+        {
+          "estimate_id": "estimate-direction-indicator-v1",
+          "item_id": "direction-indicator",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D World\uFF0FScreen \u7A7A\u9593\u3001Viewport \u6295\u5F71\u3001\u8EF8\u5411\u8207 UI \u9A57\u8B49\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u6280\u8853\u7D30\u7BC0\u5DF2\u7531 handoff \u9A57\u8B49\uFF0C\u4F46\u7F3A\u5C11\u5BE6\u969B session \u8CC7\u6599\u3002",
+          "low_minutes": 480,
+          "high_minutes": 1080,
+          "reference": "handoff.md \u2014 Interaction layer"
+        },
+        {
+          "estimate_id": "estimate-hover-fresnel-hint-v1",
+          "item_id": "hover-fresnel-hint",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D XRI Hover\u3001\u505C\u7559\u8A08\u6642\u3001\u5B57\u5E55\u3001Fresnel ShaderGraph \u8207 Affordance \u63A5\u7DDA\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u65E2\u6709\u5BE6\u4F5C\u8DEF\u7DDA\u660E\u78BA\uFF0C\u4F30\u503C\u5305\u542B Shader \u8207 XRI \u89F8\u767C\u9664\u932F\u3002",
+          "low_minutes": 480,
+          "high_minutes": 1080,
+          "reference": "handoff.md \u2014 Hover chain"
+        },
+        {
+          "estimate_id": "estimate-subtitle-explanation-v1",
+          "item_id": "subtitle-explanation",
+          "likely_minutes": 240,
+          "display_hours": 4,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u5171\u7528\u5B57\u5E55\u8CC7\u6599\u3001\u986F\u793A\u6642\u6A5F\u8207\u53D6\u6D88\u7368\u7ACB\u9762\u677F\u7684\u6574\u5408\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u7BC4\u570D\u96C6\u4E2D\u4E14\u5DF2\u5B8C\u6210\uFF0C\u4E3B\u8981\u8B8A\u7570\u4F86\u81EA\u6587\u5B57\u8207\u7248\u9762\u56DE\u6B78\u3002",
+          "low_minutes": 120,
+          "high_minutes": 360,
+          "reference": "report.json#subtitle-explanation"
+        },
+        {
+          "estimate_id": "estimate-shared-unity-event-action-v1",
+          "item_id": "shared-unity-event-action",
+          "likely_minutes": 1200,
+          "display_hours": 20,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u8DE8 Prefab \u6295\u905E\u3001ArgumentInfo\u3001PersistentCall runtime override \u8207\u4E09\u76EE\u6A19\u9A57\u8B49\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "handoff \u8A18\u9304\u6700\u7D42\u8207\u6DD8\u6C70\u65B9\u6848\uFF0C\u986F\u793A\u5B58\u5728\u975E\u4F8B\u884C\u67B6\u69CB\u63A2\u7D22\u6210\u672C\u3002",
+          "low_minutes": 720,
+          "high_minutes": 1800,
+          "reference": "handoff.md \u2014 Interaction presentation"
+        }
+      ]
+    },
+    {
+      "task_id": "fishing-performance",
+      "total_likely_minutes": 3600,
+      "estimated_days": 7.5,
+      "display_days": 8,
+      "items": [
+        {
+          "estimate_id": "estimate-six-stage-ignition-v1",
+          "item_id": "six-stage-ignition",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u516D\u6BB5\u7A0B\u5E8F\u3001Timeline \u63A5\u7DDA\u3001\u706B\u7130\u72C0\u614B\u8207\u97F3\u756B\u540C\u6B65\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5C07\u516D\u6BB5\u6F14\u51FA\u8996\u70BA\u5171\u7528\u8CC7\u7522\u8207\u6642\u5E8F\u7D44\u88DD\uFF0C\u800C\u975E\u516D\u5957\u5B8C\u5168\u7368\u7ACB\u7CFB\u7D71\u3002",
+          "low_minutes": 600,
+          "high_minutes": 1440,
+          "reference": "report.json#six-stage-ignition"
+        },
+        {
+          "estimate_id": "estimate-fish-light-gathering-v1",
+          "item_id": "fish-light-gathering",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u5927\u91CF\u9B5A\u7FA4\u751F\u6210\u3001\u8DA8\u5149\u884C\u70BA\u3001\u8996\u89BA\u5BC6\u5EA6\u8207\u6548\u80FD\u8ABF\u6821\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u65E2\u6709\u7D50\u679C\u80FD\u9A57\u8B49\u8907\u96DC\u5EA6\uFF0C\u4F46\u9B5A\u6578\u53CA\u512A\u5316\u8FED\u4EE3\u672A\u8A18\u9304\u3002",
+          "low_minutes": 600,
+          "high_minutes": 1440,
+          "reference": "report.json#fish-light-gathering"
+        },
+        {
+          "estimate_id": "estimate-main-flame-flare-v1",
+          "item_id": "main-flame-flare",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u4E3B\u706B\u7130\u3001\u71C8\u5149\u3001\u66DD\u5149\uFF0FBloom \u8207 Timeline \u5F37\u5EA6\u66F2\u7DDA\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u591C\u666F\u74B0\u5883\u5DF2\u5B58\u5728\uFF0C\u4E3B\u8981\u6210\u672C\u662F\u8ABF\u6821\u8207\u540C\u6B65\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#main-flame-flare"
+        },
+        {
+          "estimate_id": "estimate-net-sequence-v1",
+          "item_id": "net-sequence",
+          "likely_minutes": 1200,
+          "display_hours": 20,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u6492\u7DB2\u3001\u6536\u7DB2\u3001\u5165\u8259\u4E09\u6BB5\u52D5\u756B\u3001\u89D2\u8272\uFF0F\u9053\u5177\u53CA Timeline \u6642\u5E8F\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u9806\u5E8F\u5DF2\u660E\u78BA\u9A57\u8B49\uFF0C\u5BE6\u969B\u52D5\u756B\u6E05\u7406\u53CA\u8FD4\u5DE5\u91CF\u672A\u8A18\u9304\u3002",
+          "low_minutes": 720,
+          "high_minutes": 1800,
+          "reference": "handoff.md \u2014 Critical path"
+        }
+      ]
+    },
+    {
+      "task_id": "character-performance",
+      "total_likely_minutes": 1440,
+      "estimated_days": 3,
+      "display_days": 3,
+      "items": [
+        {
+          "estimate_id": "estimate-character-scene-placement-v1",
+          "item_id": "character-scene-placement",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u591A\u89D2\u8272\u8CC7\u7522\u3001\u6BD4\u4F8B\u3001\u6750\u8CEA\u3001Rig\uFF0FAnimator\u3001\u8239\u4E0A\u7AD9\u4F4D\u8207\u7A0B\u5E8F\u52D5\u756B\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u89D2\u8272\u4F86\u6E90\u8207\u6578\u91CF\u53EF\u7531\u5C08\u6848\u9A57\u8B49\uFF0C\u4F46\u500B\u5225\u6E05\u7406\u5DE5\u6642\u4E0D\u5B8C\u6574\u3002",
+          "low_minutes": 600,
+          "high_minutes": 1440,
+          "reference": "report.json#character-scene-placement"
+        },
+        {
+          "estimate_id": "estimate-character-flow-validation-v1",
+          "item_id": "character-flow-validation",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u542B\u4EBA\u7269\u7AEF\u5230\u7AEF\u64AD\u653E\u3001\u7A7F\u63D2\uFF0F\u59FF\u614B\uFF0FTimeline \u554F\u984C\u8207\u56DE\u6B78\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5B8C\u6574\u6D41\u7A0B\u5DF2\u6210\u529F\u4E00\u6B21\uFF0C\u4F30\u503C\u5305\u542B\u9A57\u8B49\u8FED\u4EE3\u800C\u975E\u55AE\u6B21\u64AD\u653E\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#character-flow-validation"
+        }
+      ]
+    },
+    {
+      "task_id": "night-sea-environment",
+      "total_likely_minutes": 2400,
+      "estimated_days": 5,
+      "display_days": 5,
+      "items": [
+        {
+          "estimate_id": "estimate-crest-ocean-v1",
+          "item_id": "crest-ocean",
+          "likely_minutes": 960,
+          "display_hours": 16,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Crest \u5957\u4EF6\u63A5\u5165\u3001URP \u6750\u8CEA\u3001\u5834\u666F\u5C3A\u5EA6\u3001\u53CD\u5C04\u8207\u8239\u9AD4\u76F8\u5BB9\u6027\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "manifest \u8207\u5834\u666F\u6750\u8CEA\u80FD\u9A57\u8B49\u6574\u5408\u7BC4\u570D\uFF0C\u7F3A\u5C11\u521D\u6B21\u5C0E\u5165\u554F\u984C\u7D00\u9304\u3002",
+          "low_minutes": 600,
+          "high_minutes": 1440,
+          "reference": "report.json#crest-ocean"
+        },
+        {
+          "estimate_id": "estimate-moonlight-lighting-v1",
+          "item_id": "moonlight-lighting",
+          "likely_minutes": 360,
+          "display_hours": 6,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u591C\u666F\u4E3B\u5149\u3001\u9670\u5F71\u3001\u89D2\u8272\uFF0F\u8239\u9AD4\u53EF\u8B80\u6027\u8207\u66DD\u5149\u8ABF\u6821\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5C6C\u5834\u666F\u8ABF\u6821\u5DE5\u4F5C\uFF0C\u54C1\u8CEA\u9580\u6ABB\u6703\u5F71\u97FF\u8FED\u4EE3\u6642\u9593\u3002",
+          "low_minutes": 180,
+          "high_minutes": 600,
+          "reference": "report.json#moonlight-lighting"
+        },
+        {
+          "estimate_id": "estimate-night-fog-v1",
+          "item_id": "night-fog",
+          "likely_minutes": 360,
+          "display_hours": 6,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u9727\u6548\u8A2D\u5B9A\u3001\u9060\u666F\u5C64\u6B21\u3001\u900F\u660E\u7269\u8207 VR \u53EF\u8B80\u6027\u8ABF\u6821\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u4E0D\u542B\u65B0\u9AD4\u7A4D\u9727\u7CFB\u7D71\u958B\u767C\uFF0C\u53EA\u4F30\u65E2\u6709\u74B0\u5883\u6574\u5408\u3002",
+          "low_minutes": 180,
+          "high_minutes": 600,
+          "reference": "report.json#night-fog"
+        },
+        {
+          "estimate_id": "estimate-fire-ocean-reflection-v1",
+          "item_id": "fire-ocean-reflection",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u706B\u5149\u3001Crest \u53CD\u5C04\u3001\u6750\u8CEA\u53C3\u6578\u8207\u591C\u666F\u540C\u6B65\u8ABF\u6821\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5DF2\u6709 Crest \u8207\u706B\u7130\u57FA\u790E\uFF1B\u900F\u660E\u8207\u53CD\u5C04\u54C1\u8CEA\u53EF\u80FD\u9700\u8981\u591A\u8F2A\u8ABF\u53C3\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#fire-ocean-reflection"
+        },
+        {
+          "estimate_id": "estimate-starfield-hdri-v1",
+          "item_id": "starfield-hdri",
+          "likely_minutes": 240,
+          "display_hours": 4,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D HDRI \u532F\u5165\u3001\u5929\u7A7A\uFF0F\u66DD\u5149\u8A2D\u5B9A\u8207\u591C\u666F\u65B9\u5411\u6821\u6B63\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u7BC4\u570D\u96C6\u4E2D\uFF0C\u4E0D\u542B\u65B0\u661F\u7A7A\u8CC7\u7522\u88FD\u4F5C\u3002",
+          "low_minutes": 120,
+          "high_minutes": 360,
+          "reference": "report.json#starfield-hdri"
+        }
+      ]
+    }
+  ],
+  "diagnostics": [
+    {
+      "level": "warning",
+      "code": "calibration-has-no-samples",
+      "message": "\u76EE\u524D\u5206\u6790\u5668\u5C1A\u672A\u5EFA\u7ACB\u53EF\u6BD4\u8F03\u7684\u5B8C\u6210\u6A23\u672C\uFF1B\u6821\u6E96\u4F7F\u7528\u8A2D\u5B9A\u7684\u5148\u9A57\u56E0\u5B50\u3002"
+    },
+    {
+      "level": "info",
+      "code": "deadline-start-inferred",
+      "message": "project.not_before \u672A\u8A2D\u5B9A\uFF1B\u671F\u9650\u5BB9\u91CF\u8D77\u9EDE\u7531\u6700\u65E9\u4E8B\u4EF6\u6216 report.updated_at \u63A8\u5B9A\u3002"
+    }
+  ]
+}
