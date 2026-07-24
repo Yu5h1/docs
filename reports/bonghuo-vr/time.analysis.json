@@ -2,15 +2,15 @@
   "schema_version": "0.2",
   "scope_id": "bonghuo-vr",
   "analysis_id": "bonghuo-vr-time-analysis-v1",
-  "as_of": "2026-07-24T22:16:32.6031127\u002B08:00",
+  "as_of": "2026-07-24T23:13:54.1140978\u002B08:00",
   "method": {
-    "name": "deterministic-progress-pressure",
-    "version": "0.2"
+    "name": "deterministic-capacity-feasibility",
+    "version": "0.3"
   },
   "inputs": {
     "config_updated_at": "2026-07-24T22:15:17\u002B08:00",
     "estimates_updated_at": "2026-07-24T22:04:17\u002B08:00",
-    "events_updated_at": "2026-07-24T22:16:32.6031127\u002B08:00",
+    "events_updated_at": "2026-07-24T23:13:54.1140978\u002B08:00",
     "task_state_updated_at": "2026-07-24T20:56:48\u002B08:00"
   },
   "summary": {
@@ -28,6 +28,7 @@
     },
     "total_estimated_minutes": 19440,
     "calibrated_total_minutes": 19440,
+    "remaining_estimated_minutes": 6960,
     "actual_recorded_minutes": 0,
     "estimated_total_days": 40.5,
     "display_total_days": 41,
@@ -41,14 +42,15 @@
     "deadline": {
       "started_at": "2026-07-24T09:00:00.0000000\u002B08:00",
       "delivery_at": "2026-08-01T00:00:00.0000000\u002B08:00",
-      "evaluated_at": "2026-07-24T22:16:32.6031127\u002B08:00",
+      "evaluated_at": "2026-07-24T23:13:54.1140978\u002B08:00",
       "schedule": {
         "timezone": "Asia/Taipei",
         "workday_start_local": "09:00",
         "workday_end_local": "17:00",
         "risk_thresholds": {
           "on_track_max": 1.1,
-          "at_risk_max": 1.5
+          "at_risk_max": 1.5,
+          "capacity_at_risk_ratio": 0.8
         },
         "capacity_profile": {
           "total_minutes_per_day": 1440,
@@ -94,11 +96,16 @@
       },
       "elapsed_capacity_minutes": 480,
       "total_capacity_minutes": 2880,
+      "remaining_capacity_minutes": 2400,
+      "remaining_estimated_minutes": 6960,
+      "capacity_balance_minutes": -4560,
       "time_progress_ratio": 0.166667,
       "work_progress_ratio": 0.62069,
       "boundary_state": "active",
-      "urgency": "on_track",
-      "progress_pressure_ratio": 0.455173
+      "urgency": "critical",
+      "risk_basis": "capacity_shortfall",
+      "progress_pressure_ratio": 0.455173,
+      "feasibility_ratio": 2.9
     }
   },
   "tasks": [
