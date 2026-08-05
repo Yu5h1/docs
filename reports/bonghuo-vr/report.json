@@ -3,7 +3,7 @@
   "report_id": "bonghuo-vr-progress",
   "scope_id": "bonghuo-vr",
   "title": "《磺港蹦火》VR 互動動畫開發進度",
-  "updated_at": "2026-07-24T20:56:48+08:00",
+  "updated_at": "2026-08-05T03:10:04+08:00",
   "tasks": [
     {
       "id": "storyboard-full-experience",
@@ -34,13 +34,23 @@
     {
       "id": "art-presentation",
       "title": "美術表現",
-      "status": "planned",
-      "summary": "捕魚演出、船體、火焰、水流與海面的十項美術加強仍是已知規劃工作；目前尚未開始，也不是當前 PC／Meta 重播驗收的前置條件。",
-      "pending_items": [
+      "status": "in_progress",
+      "summary": "捕魚演出、船體、火焰、水流與海面的美術加強；其中魚群跳出、漁網物理變化與魚群被撈已透過 Unified-Solver 物理互動完成，其餘七項仍為規劃工作，非當前 PC／Meta 重播驗收的前置條件。",
+      "completed_items": [
+        {
+          "id": "fish-jump-vfx",
+          "title": "魚群跳出效果"
+        },
         {
           "id": "fishing-net-physics",
           "title": "漁網特效與漁網的物理變化"
         },
+        {
+          "id": "fish-catch-vfx",
+          "title": "魚群被撈效果"
+        }
+      ],
+      "pending_items": [
         {
           "id": "searchlight-vfx",
           "title": "探照燈特效"
@@ -68,14 +78,6 @@
         {
           "id": "larger-waves",
           "title": "加大波浪"
-        },
-        {
-          "id": "fish-jump-vfx",
-          "title": "魚群跳出效果"
-        },
-        {
-          "id": "fish-catch-vfx",
-          "title": "魚群被撈效果"
         }
       ]
     },
