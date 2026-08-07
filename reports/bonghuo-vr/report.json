@@ -3,7 +3,7 @@
   "report_id": "bonghuo-vr-progress",
   "scope_id": "bonghuo-vr",
   "title": "《磺港蹦火》VR 互動動畫開發進度",
-  "updated_at": "2026-08-07T13:07:34+08:00",
+  "updated_at": "2026-08-07T13:43:50+08:00",
   "tasks": [
     {
       "id": "storyboard-full-experience",
@@ -35,7 +35,7 @@
       "id": "art-presentation",
       "title": "美術表現",
       "status": "in_progress",
-      "summary": "捕魚演出、船體、火焰、水流與海面的美術加強；魚群跳出、漁網物理變化、魚群被撈、鏟冰、倒魚、船體上下晃動已完成（多數透過 Unified-Solver 物理互動），探照燈以 URP 體積光（質量光）render feature 完成；其餘三項仍為規劃工作，非當前 PC／Meta 重播驗收的前置條件。",
+      "summary": "捕魚演出、船體、火焰、水流與海面的美術加強；魚群跳出、漁網物理變化、魚群被撈、鏟冰、倒魚、船體上下晃動已完成（多數透過 Unified-Solver 物理互動），探照燈以 URP 體積光（質量光）render feature 完成，點火特效膨脹與加大波浪亦已完成；僅餘水管出水特效一項，非當前 PC／Meta 重播驗收的前置條件。",
       "completed_items": [
         {
           "id": "fish-jump-vfx",
@@ -64,20 +64,20 @@
         {
           "id": "searchlight-vfx",
           "title": "探照燈特效"
-        }
-      ],
-      "pending_items": [
+        },
         {
           "id": "ignition-expansion-vfx",
           "title": "點火特效膨脹"
         },
         {
-          "id": "hose-water-vfx",
-          "title": "水管出水特效"
-        },
-        {
           "id": "larger-waves",
           "title": "加大波浪"
+        }
+      ],
+      "pending_items": [
+        {
+          "id": "hose-water-vfx",
+          "title": "水管出水特效"
         }
       ]
     },
