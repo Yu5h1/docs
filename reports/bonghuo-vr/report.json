@@ -3,7 +3,7 @@
   "report_id": "bonghuo-vr-progress",
   "scope_id": "bonghuo-vr",
   "title": "《磺港蹦火》VR 互動動畫開發進度",
-  "updated_at": "2026-08-07T13:43:50+08:00",
+  "updated_at": "2026-08-22T00:00:00+08:00",
   "tasks": [
     {
       "id": "storyboard-full-experience",
@@ -34,8 +34,9 @@
     {
       "id": "art-presentation",
       "title": "美術表現",
-      "status": "in_progress",
-      "summary": "捕魚演出、船體、火焰、水流與海面的美術加強；魚群跳出、漁網物理變化、魚群被撈、鏟冰、倒魚、船體上下晃動已完成（多數透過 Unified-Solver 物理互動），探照燈以 URP 體積光（質量光）render feature 完成，點火特效膨脹與加大波浪亦已完成；僅餘水管出水特效一項，非當前 PC／Meta 重播驗收的前置條件。",
+      "status": "done",
+      "summary": "捕魚演出、船體、火焰、水流與海面的十項美術加強已全部完成。魚群跳出、漁網物理變化、魚群被撈、鏟冰、倒魚、船體上下晃動多數透過 Unified-Solver 物理互動達成；探照燈以 URP 體積光 render feature 完成；水管以粒子 Trail 構成水流，沖刷時與魚群產生物理互動並在接觸面散開水紋。",
+      "pending_items": [],
       "completed_items": [
         {
           "id": "fish-jump-vfx",
@@ -43,7 +44,8 @@
         },
         {
           "id": "fishing-net-physics",
-          "title": "漁網特效與漁網的物理變化"
+          "title": "漁網特效與漁網的物理變化",
+          "priority": 1
         },
         {
           "id": "fish-catch-vfx",
@@ -51,19 +53,23 @@
         },
         {
           "id": "ice-shoveling-vfx",
-          "title": "鏟冰特效"
+          "title": "鏟冰特效",
+          "priority": 3
         },
         {
           "id": "fish-dumping-vfx",
-          "title": "倒魚特效"
+          "title": "倒魚特效",
+          "priority": 4
         },
         {
           "id": "boat-bobbing",
-          "title": "船體上下晃動"
+          "title": "船體上下晃動",
+          "priority": 0
         },
         {
           "id": "searchlight-vfx",
-          "title": "探照燈特效"
+          "title": "探照燈特效",
+          "priority": 2
         },
         {
           "id": "ignition-expansion-vfx",
@@ -72,12 +78,10 @@
         {
           "id": "larger-waves",
           "title": "加大波浪"
-        }
-      ],
-      "pending_items": [
+        },
         {
           "id": "hose-water-vfx",
-          "title": "水管出水特效"
+          "title": "水管與沖刷物理互動與 VFX 表現"
         }
       ]
     },
@@ -103,7 +107,8 @@
           "id": "shared-unity-event-action",
           "title": "三個目標共用 UnityEvent action，執行時覆寫各自參數"
         }
-      ]
+      ],
+      "pending_items": []
     },
     {
       "id": "fishing-performance",
@@ -127,7 +132,8 @@
           "id": "net-sequence",
           "title": "撒網、收網、入艙動作時序片段"
         }
-      ]
+      ],
+      "pending_items": []
     },
     {
       "id": "character-performance",
@@ -143,7 +149,8 @@
           "id": "character-flow-validation",
           "title": "含人物的完整流程已跑完一次"
         }
-      ]
+      ],
+      "pending_items": []
     },
     {
       "id": "night-sea-environment",
@@ -171,7 +178,8 @@
           "id": "starfield-hdri",
           "title": "星空 HDRI"
         }
-      ]
+      ],
+      "pending_items": []
     }
   ]
 }
