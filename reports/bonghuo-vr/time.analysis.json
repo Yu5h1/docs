@@ -2,16 +2,16 @@
   "schema_version": "0.2",
   "scope_id": "bonghuo-vr",
   "analysis_id": "bonghuo-vr-time-analysis-v1",
-  "as_of": "2026-07-24T23:13:54.1140978\u002B08:00",
+  "as_of": "2026-08-22T21:56:35.1418313\u002B08:00",
   "method": {
     "name": "deterministic-capacity-feasibility",
     "version": "0.3"
   },
   "inputs": {
-    "config_updated_at": "2026-07-24T22:15:17\u002B08:00",
-    "estimates_updated_at": "2026-07-24T22:04:17\u002B08:00",
-    "events_updated_at": "2026-07-24T23:13:54.1140978\u002B08:00",
-    "task_state_updated_at": "2026-07-24T20:56:48\u002B08:00"
+    "config_updated_at": "2026-08-22T21:50:00\u002B08:00",
+    "estimates_updated_at": "2026-08-12T02:32:00.782Z",
+    "events_updated_at": "2026-08-22T21:56:35.1418313\u002B08:00",
+    "task_state_updated_at": "2026-08-22T00:00:00\u002B08:00"
   },
   "summary": {
     "executor_count": 1,
@@ -26,23 +26,23 @@
       "confidence": "low",
       "automatic_applied": false
     },
-    "total_estimated_minutes": 19440,
-    "calibrated_total_minutes": 19440,
-    "remaining_estimated_minutes": 6960,
+    "total_estimated_minutes": 19411,
+    "calibrated_total_minutes": 19411,
+    "remaining_estimated_minutes": 240,
     "actual_recorded_minutes": 0,
-    "estimated_total_days": 40.5,
+    "estimated_total_days": 40.4396,
     "display_total_days": 41,
     "overall_confidence": "low",
     "estimate_composition": {
-      "ai_minutes": 19440,
+      "ai_minutes": 18960,
       "mixed_minutes": 0,
-      "manual_minutes": 0,
+      "manual_minutes": 451,
       "default_minutes": 0
     },
     "deadline": {
       "started_at": "2026-07-24T09:00:00.0000000\u002B08:00",
       "delivery_at": "2026-08-01T00:00:00.0000000\u002B08:00",
-      "evaluated_at": "2026-07-24T23:13:54.1140978\u002B08:00",
+      "evaluated_at": "2026-08-22T21:56:35.1418313\u002B08:00",
       "schedule": {
         "timezone": "Asia/Taipei",
         "workday_start_local": "09:00",
@@ -94,18 +94,16 @@
           }
         ]
       },
-      "elapsed_capacity_minutes": 480,
+      "elapsed_capacity_minutes": 2880,
       "total_capacity_minutes": 2880,
-      "remaining_capacity_minutes": 2400,
-      "remaining_estimated_minutes": 6960,
-      "capacity_balance_minutes": -4560,
-      "time_progress_ratio": 0.166667,
-      "work_progress_ratio": 0.62069,
-      "boundary_state": "active",
+      "remaining_capacity_minutes": 0,
+      "remaining_estimated_minutes": 240,
+      "capacity_balance_minutes": -240,
+      "time_progress_ratio": 1,
+      "work_progress_ratio": 0.965517,
+      "boundary_state": "delivery_reached",
       "urgency": "critical",
-      "risk_basis": "capacity_shortfall",
-      "progress_pressure_ratio": 0.455173,
-      "feasibility_ratio": 2.9
+      "risk_basis": "boundary"
     }
   },
   "tasks": [
@@ -195,10 +193,29 @@
     },
     {
       "task_id": "art-presentation",
-      "total_likely_minutes": 6720,
-      "estimated_days": 14,
+      "total_likely_minutes": 6691,
+      "estimated_days": 13.9396,
       "display_days": 14,
       "items": [
+        {
+          "estimate_id": "estimate-fish-jump-vfx-v1",
+          "item_id": "fish-jump-vfx",
+          "likely_minutes": 720,
+          "display_hours": 12,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D\u9B5A\u7269\u4EF6\u6C60\u3001\u62CB\u7269\u7DDA\uFF0FClip\u3001\u96A8\u6A5F\u5316\u53CA\u6C34\u82B1\u540C\u6B65\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u5DF2\u6709\u9B5A\u7FA4\u8CC7\u7522\u8207\u8DA8\u5149\u6D41\u7A0B\uFF0C\u4F46\u8DF3\u8E8D\u5BC6\u5EA6\u53CA\u54C1\u8CEA\u76EE\u6A19\u672A\u78BA\u8A8D\u3002",
+          "low_minutes": 360,
+          "high_minutes": 1200,
+          "reference": "report.json#fish-jump-vfx"
+        },
         {
           "estimate_id": "estimate-fishing-net-physics-v1",
           "item_id": "fishing-net-physics",
@@ -219,23 +236,23 @@
           "reference": "handoff.md \u2014 Planned art presentation"
         },
         {
-          "estimate_id": "estimate-searchlight-vfx-v1",
-          "item_id": "searchlight-vfx",
-          "likely_minutes": 480,
-          "display_hours": 8,
+          "estimate_id": "estimate-fish-catch-vfx-v1",
+          "item_id": "fish-catch-vfx",
+          "likely_minutes": 960,
+          "display_hours": 16,
           "mode": "ai",
           "contributors": [
             {
               "kind": "ai_analysis",
-              "summary": "\u4F9D Spot Light\u3001Cookie\u3001\u9310\u5F62\u9AD4\u7A4D\u6548\u679C\u3001Timeline \u8207 VR \u8996\u89BA\u6E2C\u8A66\u4F30\u7B97\u3002"
+              "summary": "\u4F9D\u9B5A\u7FA4\u5C0E\u5F15\u3001\u6F01\u7DB2\u6355\u7372\u5340\u3001\u72C0\u614B\u5207\u63DB\u3001\u56DE\u6536\u8207 Timeline \u6574\u5408\u4F30\u7B97\u3002"
             }
           ],
           "human_confirmed": false,
-          "confidence": "medium",
-          "explanation": "\u6280\u8853\u8DEF\u7DDA\u660E\u78BA\uFF1B\u900F\u660E\u6392\u5E8F\u3001\u9727\u8207\u66DD\u5149\u76F8\u5BB9\u6027\u53EF\u80FD\u589E\u52A0\u8ABF\u6821\u6642\u9593\u3002",
-          "low_minutes": 240,
-          "high_minutes": 720,
-          "reference": "report.json#searchlight-vfx"
+          "confidence": "low",
+          "explanation": "\u6F01\u7DB2\u6700\u7D42\u52D5\u614B\u65B9\u6848\u6703\u76F4\u63A5\u5F71\u97FF\u6B64\u9805\u5BE6\u4F5C\u6210\u672C\u3002",
+          "low_minutes": 480,
+          "high_minutes": 1440,
+          "reference": "report.json#fish-catch-vfx"
         },
         {
           "estimate_id": "estimate-ice-shoveling-vfx-v1",
@@ -295,6 +312,25 @@
           "reference": "report.json#boat-bobbing"
         },
         {
+          "estimate_id": "estimate-searchlight-vfx-v1",
+          "item_id": "searchlight-vfx",
+          "likely_minutes": 480,
+          "display_hours": 8,
+          "mode": "ai",
+          "contributors": [
+            {
+              "kind": "ai_analysis",
+              "summary": "\u4F9D Spot Light\u3001Cookie\u3001\u9310\u5F62\u9AD4\u7A4D\u6548\u679C\u3001Timeline \u8207 VR \u8996\u89BA\u6E2C\u8A66\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": false,
+          "confidence": "medium",
+          "explanation": "\u6280\u8853\u8DEF\u7DDA\u660E\u78BA\uFF1B\u900F\u660E\u6392\u5E8F\u3001\u9727\u8207\u66DD\u5149\u76F8\u5BB9\u6027\u53EF\u80FD\u589E\u52A0\u8ABF\u6821\u6642\u9593\u3002",
+          "low_minutes": 240,
+          "high_minutes": 720,
+          "reference": "report.json#searchlight-vfx"
+        },
+        {
           "estimate_id": "estimate-ignition-expansion-vfx-v1",
           "item_id": "ignition-expansion-vfx",
           "likely_minutes": 480,
@@ -314,6 +350,24 @@
           "reference": "report.json#ignition-expansion-vfx"
         },
         {
+          "estimate_id": "estimate-larger-waves-20260812023200782",
+          "item_id": "larger-waves",
+          "likely_minutes": 451,
+          "display_hours": 7.52,
+          "mode": "manual",
+          "contributors": [
+            {
+              "kind": "human_estimate",
+              "summary": "\u4EBA\u5DE5\u76F4\u63A5\u4F30\u7B97\u3002"
+            }
+          ],
+          "human_confirmed": true,
+          "confidence": "medium",
+          "explanation": "\u4F30\u7B97\u4F86\u6E90\u5DF2\u8A18\u9304\uFF0C\u4F46\u5C1A\u672A\u63D0\u4F9B\u516C\u958B\u8AAA\u660E\u3002",
+          "supersedes_estimate_id": "estimate-larger-waves-20260812023040546",
+          "human_note": "\u6E2C\u8A66\u4EBA\u5DE5\u4F30\u7B97\u5DE5\u6642"
+        },
+        {
           "estimate_id": "estimate-hose-water-vfx-v1",
           "item_id": "hose-water-vfx",
           "likely_minutes": 480,
@@ -331,63 +385,6 @@
           "low_minutes": 240,
           "high_minutes": 720,
           "reference": "report.json#hose-water-vfx"
-        },
-        {
-          "estimate_id": "estimate-larger-waves-v1",
-          "item_id": "larger-waves",
-          "likely_minutes": 480,
-          "display_hours": 8,
-          "mode": "ai",
-          "contributors": [
-            {
-              "kind": "ai_analysis",
-              "summary": "\u4F9D Crest \u6CE2\u8B5C\uFF0F\u5C40\u90E8\u8F38\u5165\u3001\u53CD\u5C04\u8868\u73FE\u53CA VR \u8212\u9069\u5EA6\u56DE\u6B78\u4F30\u7B97\u3002"
-            }
-          ],
-          "human_confirmed": false,
-          "confidence": "medium",
-          "explanation": "\u4E0D\u542B\u91CD\u5BEB\u6D77\u6D0B Shader\uFF1B\u82E5\u53EA\u8ABF\u53C3\u53EF\u63A5\u8FD1\u4F4E\u503C\u3002",
-          "low_minutes": 240,
-          "high_minutes": 720,
-          "reference": "report.json#larger-waves"
-        },
-        {
-          "estimate_id": "estimate-fish-jump-vfx-v1",
-          "item_id": "fish-jump-vfx",
-          "likely_minutes": 720,
-          "display_hours": 12,
-          "mode": "ai",
-          "contributors": [
-            {
-              "kind": "ai_analysis",
-              "summary": "\u4F9D\u9B5A\u7269\u4EF6\u6C60\u3001\u62CB\u7269\u7DDA\uFF0FClip\u3001\u96A8\u6A5F\u5316\u53CA\u6C34\u82B1\u540C\u6B65\u4F30\u7B97\u3002"
-            }
-          ],
-          "human_confirmed": false,
-          "confidence": "medium",
-          "explanation": "\u5DF2\u6709\u9B5A\u7FA4\u8CC7\u7522\u8207\u8DA8\u5149\u6D41\u7A0B\uFF0C\u4F46\u8DF3\u8E8D\u5BC6\u5EA6\u53CA\u54C1\u8CEA\u76EE\u6A19\u672A\u78BA\u8A8D\u3002",
-          "low_minutes": 360,
-          "high_minutes": 1200,
-          "reference": "report.json#fish-jump-vfx"
-        },
-        {
-          "estimate_id": "estimate-fish-catch-vfx-v1",
-          "item_id": "fish-catch-vfx",
-          "likely_minutes": 960,
-          "display_hours": 16,
-          "mode": "ai",
-          "contributors": [
-            {
-              "kind": "ai_analysis",
-              "summary": "\u4F9D\u9B5A\u7FA4\u5C0E\u5F15\u3001\u6F01\u7DB2\u6355\u7372\u5340\u3001\u72C0\u614B\u5207\u63DB\u3001\u56DE\u6536\u8207 Timeline \u6574\u5408\u4F30\u7B97\u3002"
-            }
-          ],
-          "human_confirmed": false,
-          "confidence": "low",
-          "explanation": "\u6F01\u7DB2\u6700\u7D42\u52D5\u614B\u65B9\u6848\u6703\u76F4\u63A5\u5F71\u97FF\u6B64\u9805\u5BE6\u4F5C\u6210\u672C\u3002",
-          "low_minutes": 480,
-          "high_minutes": 1440,
-          "reference": "report.json#fish-catch-vfx"
         }
       ]
     },
@@ -714,11 +711,6 @@
       "level": "warning",
       "code": "calibration-has-no-samples",
       "message": "\u76EE\u524D\u5206\u6790\u5668\u5C1A\u672A\u5EFA\u7ACB\u53EF\u6BD4\u8F03\u7684\u5B8C\u6210\u6A23\u672C\uFF1B\u6821\u6E96\u4F7F\u7528\u8A2D\u5B9A\u7684\u5148\u9A57\u56E0\u5B50\u3002"
-    },
-    {
-      "level": "info",
-      "code": "deadline-start-inferred",
-      "message": "project.not_before \u672A\u8A2D\u5B9A\uFF1B\u671F\u9650\u5BB9\u91CF\u8D77\u9EDE\u7531\u6700\u65E9\u4E8B\u4EF6\u6216 report.updated_at \u63A8\u5B9A\u3002"
     }
   ]
 }
