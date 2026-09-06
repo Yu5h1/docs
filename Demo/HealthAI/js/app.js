@@ -18,7 +18,7 @@ document.querySelector('#entryMenu').addEventListener('click', () => {
   document.querySelector('#entryMenuToggle').setAttribute('aria-expanded', 'false');
 });
 document.querySelector('#closeDetail').addEventListener('click', closeDetail);
-document.querySelector('#scrim').addEventListener('click', () => { closeDetail(); closeTranscript(); });
+document.querySelector('#scrim').addEventListener('click', () => SheetLayer.closeActive());
 document.querySelector('#openTranscriptTop').addEventListener('click', openTranscript);
 document.querySelector('#closeTranscript').addEventListener('click', closeTranscript);
 document.querySelector('#talkFromDetail').addEventListener('click', () => { closeDetail(); input.focus(); });

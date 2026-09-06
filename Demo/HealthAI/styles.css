@@ -479,7 +479,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   background: color-mix(in srgb, var(--textPrimary) 34%, transparent);
   transition: opacity .25s ease, visibility .25s ease;
 }
-.app[data-state="detail"] ~ .scrim, .phone.transcript-open .scrim { opacity: 1; visibility: visible; }
+.phone.sheet-visible .scrim { opacity: 1; visibility: visible; }
 
 .sheet {
   position: absolute;
@@ -493,11 +493,10 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   border-radius: 28px 28px 38px 38px;
   background: var(--surface);
   transform: translateY(104%);
+  visibility: hidden;
   /* Position is owned by Motion.spring, including opening and closing. */
 }
-.detail-sheet { visibility: hidden; }
-.app[data-state="detail"] ~ .detail-sheet { transform: translateY(0); visibility: visible; }
-.phone.transcript-open .transcript-sheet { transform: translateY(0); }
+.sheet.is-active { visibility: visible; transform: translateY(0); }
 .grabber {
   display: grid; place-items: center; width: 100%; height: 36px;
   margin: -8px auto 6px; padding: 0; border: 0; background: transparent;

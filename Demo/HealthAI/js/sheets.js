@@ -1,14 +1,140 @@
-function openTranscript() {
-  if (app.dataset.state === 'detail') closeDetail();
-  phone.classList.add('transcript-open');
-  animateSheet(document.querySelector('#transcriptSheet'), false);
-  document.querySelector('#closeTranscript').focus({ preventScroll: true });
+// One controller owns open, close, drag, inertia and scrim timing for every bottom sheet.
+const SheetLayer = (() => {
+  const scrim = document.querySelector('#scrim');
+  let active = null;
+  const setScrimProgress = progress => { scrim.style.opacity = String(Math.max(0, Math.min(1, progress))); };
+  const showScrim = () => { scrim.style.removeProperty('opacity'); phone.classList.add('sheet-visible'); };
+  const hideScrim = () => { phone.classList.remove('sheet-visible'); scrim.style.removeProperty('opacity'); };
+  function replace(controller) {
+    if (active && active !== controller) active.finishImmediately();
+    active = controller;
+  }
+  const clear = controller => { if (active === controller) active = null; };
+  const closeActive = () => active?.close();
+  return { clear, closeActive, hideScrim, replace, setScrimProgress, showScrim };
+})();
+
+class SheetController {
+  constructor(sheet, { afterClose = () => {} } = {}) {
+    this.sheet = sheet;
+    this.afterClose = afterClose;
+    this.drag = null;
+    this.suppressClick = false;
+    this.bindHandle();
+  }
+
+  get isActive() { return this.sheet.classList.contains('is-active'); }
+
+  open() {
+    SheetLayer.replace(this);
+    Motion.cancel(this.sheet);
+    this.sheet.classList.add('is-active');
+    SheetLayer.showScrim();
+    this.animate(false);
+  }
+
+  close(velocity = 0) {
+    if (!this.isActive) return;
+    SheetLayer.hideScrim();
+    this.animate(true, velocity, () => this.finish());
+  }
+
+  finish() {
+    this.sheet.classList.remove('is-active', 'dragging');
+    this.sheet.style.removeProperty('transform');
+    SheetLayer.clear(this);
+    this.afterClose();
+  }
+
+  finishImmediately() {
+    if (!this.isActive) return;
+    Motion.cancel(this.sheet);
+    SheetLayer.hideScrim();
+    this.finish();
+  }
+
+  animate(closing, velocity = 0, complete = () => {}) {
+    const computed = getComputedStyle(this.sheet).transform;
+    const current = this.sheet.style.transform && computed !== 'none'
+      ? new DOMMatrixReadOnly(computed).m42
+      : closing ? 0 : this.sheet.offsetHeight + 12;
+    const target = closing ? this.sheet.offsetHeight + 12 : 0;
+    this.sheet.style.transform = `translateY(${current}px)`;
+    Motion.spring(this.sheet, {
+      from: current, to: target, velocity,
+      update: y => { this.sheet.style.transform = `translateY(${y}px)`; },
+      complete: () => {
+        if (!closing) this.sheet.style.removeProperty('transform');
+        complete();
+      }
+    });
+  }
+
+  bindHandle() {
+    const handle = this.sheet.querySelector('.grabber');
+    handle.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0 || !this.isActive) return;
+      this.suppressClick = false;
+      Motion.cancel(this.sheet);
+      const transform = getComputedStyle(this.sheet).transform;
+      const offset = transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m42;
+      this.drag = {
+        id: event.pointerId, origin: event.clientY - offset, distance: offset, moved: false,
+        lastY: event.clientY, time: performance.now(), velocity: 0,
+        threshold: Math.min(100, this.sheet.getBoundingClientRect().height * .25)
+      };
+      handle.setPointerCapture(event.pointerId);
+      this.sheet.classList.add('dragging');
+    });
+
+    handle.addEventListener('pointermove', event => {
+      const drag = this.drag;
+      if (!drag || event.pointerId !== drag.id) return;
+      const now = performance.now();
+      drag.velocity = (event.clientY - drag.lastY) / Math.max(.008, (now - drag.time) / 1000);
+      drag.lastY = event.clientY;
+      drag.time = now;
+      drag.distance = Math.max(0, event.clientY - drag.origin);
+      drag.moved ||= drag.distance > 5;
+      this.sheet.style.transform = `translateY(${drag.distance}px)`;
+      SheetLayer.setScrimProgress(1 - drag.distance / this.sheet.offsetHeight);
+    });
+
+    const finishDrag = event => {
+      const drag = this.drag;
+      if (!drag || event.pointerId !== drag.id) return;
+      const velocity = performance.now() - drag.time < 100 ? drag.velocity : 0;
+      const dismiss = event.type === 'pointerup' && drag.distance + velocity * .12 >= drag.threshold;
+      this.suppressClick = drag.moved || event.type !== 'pointerup';
+      this.drag = null;
+      this.sheet.classList.remove('dragging');
+      if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
+      if (dismiss) this.close(velocity);
+      else { SheetLayer.showScrim(); this.animate(false, velocity); }
+    };
+
+    handle.addEventListener('pointerup', finishDrag);
+    handle.addEventListener('pointercancel', finishDrag);
+    handle.addEventListener('lostpointercapture', finishDrag);
+    handle.addEventListener('click', event => {
+      if (this.suppressClick && event.detail !== 0) { this.suppressClick = false; return; }
+      this.close();
+    });
+  }
 }
 
-function closeTranscript() {
-  if (!phone.classList.contains('transcript-open')) return;
-  animateSheet(document.querySelector('#transcriptSheet'), true, () => phone.classList.remove('transcript-open'));
+const transcriptController = new SheetController(document.querySelector('#transcriptSheet'));
+const detailController = new SheetController(document.querySelector('#detailSheet'), {
+  afterClose: () => {
+    if (app.dataset.state === 'detail') setState(previousState === 'detail' ? 'home' : previousState);
+  }
+});
+
+function openTranscript() {
+  transcriptController.open();
+  document.querySelector('#closeTranscript').focus({ preventScroll: true });
 }
+function closeTranscript() { transcriptController.close(); }
 
 function openDetail(kind) {
   activeDetail = kind;
@@ -23,82 +149,10 @@ function openDetail(kind) {
   document.querySelector('#detailGrid').innerHTML = data.grid.map(([label, value]) => `<div><p class="detail-label">${label}</p><p class="detail-data">${value}</p></div>`).join('');
   updateDetailValue();
   setState('detail');
-  animateSheet(document.querySelector('#detailSheet'), false);
+  detailController.open();
   document.querySelector('#closeDetail').focus({ preventScroll: true });
 }
-
-function closeDetail() {
-  if (app.dataset.state !== 'detail') return;
-  animateSheet(document.querySelector('#detailSheet'), true, () => {
-    if (app.dataset.state === 'detail') setState(previousState === 'detail' ? 'home' : previousState);
-  });
-}
-
-function animateSheet(sheet, closing, complete = () => {}, velocity = 0) {
-  const current = sheet.style.transform
-    ? new DOMMatrixReadOnly(getComputedStyle(sheet).transform).m42
-    : closing ? 0 : sheet.offsetHeight + 12;
-  sheet.style.transition = 'none';
-  sheet.style.transform = `translateY(${current}px)`;
-  Motion.spring(sheet, {
-    from: current, to: closing ? sheet.offsetHeight + 12 : 0, velocity,
-    update: y => { sheet.style.transform = `translateY(${y}px)`; },
-    complete: () => { complete(); sheet.style.removeProperty('transform'); sheet.style.removeProperty('transition'); }
-  });
-}
-
-// Shared handle interaction for the conversation sheet and every detail view.
-function bindSheetHandle(sheet, close) {
-  const handle = sheet.querySelector('.grabber');
-  let drag = null;
-  let suppressClick = false;
-  handle.addEventListener('pointerdown', event => {
-    if (!event.isPrimary || event.button !== 0) return;
-    suppressClick = false;
-    Motion.cancel(sheet);
-    const offset = new DOMMatrixReadOnly(getComputedStyle(sheet).transform).m42;
-    drag = { id: event.pointerId, y: event.clientY - offset, distance: offset, moved: false,
-      lastY: event.clientY, time: performance.now(), velocity: 0,
-      threshold: Math.min(100, sheet.getBoundingClientRect().height * .25) };
-    handle.setPointerCapture(event.pointerId);
-    sheet.classList.add('dragging');
-  });
-  handle.addEventListener('pointermove', event => {
-    if (!drag || event.pointerId !== drag.id) return;
-    const delta = event.clientY - drag.y;
-    const now = performance.now();
-    drag.velocity = (event.clientY - drag.lastY) / Math.max(.008, (now - drag.time) / 1000);
-    drag.lastY = event.clientY; drag.time = now;
-    drag.moved ||= Math.abs(delta) > 5;
-    drag.distance = Math.max(0, delta);
-    sheet.style.transform = `translateY(${drag.distance}px)`;
-  });
-  function finish(event) {
-    if (!drag || event.pointerId !== drag.id) return;
-    const velocity = performance.now() - drag.time < 100 ? drag.velocity : 0;
-    const dismiss = event.type === 'pointerup' && drag.distance + velocity * .12 >= drag.threshold;
-    suppressClick = drag.moved || event.type !== 'pointerup';
-    drag = null;
-    sheet.classList.remove('dragging');
-    if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
-    if (dismiss) {
-      animateSheet(sheet, true, () => {
-        if (sheet.id === 'detailSheet') {
-          if (app.dataset.state === 'detail') setState(previousState);
-        } else phone.classList.remove('transcript-open');
-      }, velocity);
-    } else animateSheet(sheet, false, () => {}, velocity);
-  }
-  handle.addEventListener('pointerup', finish);
-  handle.addEventListener('pointercancel', finish);
-  handle.addEventListener('lostpointercapture', finish);
-  handle.addEventListener('click', event => {
-    if (suppressClick && event.detail !== 0) { suppressClick = false; return; }
-    close();
-  });
-}
-bindSheetHandle(document.querySelector('#detailSheet'), closeDetail);
-bindSheetHandle(document.querySelector('#transcriptSheet'), closeTranscript);
+function closeDetail() { detailController.close(); }
 
 function updateDetailValue() {
   const value = document.querySelector('#detailValue');
