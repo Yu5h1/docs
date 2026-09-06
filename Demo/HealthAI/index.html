@@ -1,610 +1,11 @@
-<!DOCTYPE html>
-<!-- saved from url=(0062)file:///W:/UnityProject/HealthAI/docs/demo/HealthAI/index.html -->
-<html lang="zh-Hant" style="--bpm: 72; --arousal: 0.28; --movement: 0.05;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="HealthAI 單頁介面互動 Demo，所有資料與回覆皆為虛構內容。">
   <title>HealthAI 介面互動 Demo</title>
-  <style>
-    :root {
-      --background: #F7F5F0;
-      --surface: #FFFFFF;
-      --brandPrimary: #6F8FA3;
-      --brandSecondary: #91A995;
-      --accentWarm: #D8B49B;
-      --textPrimary: #27312F;
-      --textSecondary: #66716D;
-      --divider: #E2E5E1;
-      --caution: #B98555;
-      --critical: #B85C5C;
-      --bpm: 72;
-      --arousal: .28;
-      --movement: .08;
-      --veil-opacity: .82;
-      color-scheme: light;
-      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Segoe UI", system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { background: var(--background); }
-    body {
-      margin: 0;
-      min-width: 320px;
-      min-height: 100vh;
-      color: var(--textPrimary);
-      background:
-        radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--accentWarm) 18%, transparent), transparent 29rem),
-        radial-gradient(circle at 83% 90%, color-mix(in srgb, var(--brandPrimary) 14%, transparent), transparent 32rem),
-        var(--background);
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    button, input, select { font: inherit; }
-    button { color: inherit; }
-    button:focus-visible, input:focus-visible, select:focus-visible {
-      outline: 3px solid color-mix(in srgb, var(--brandPrimary) 48%, transparent);
-      outline-offset: 2px;
-    }
-    [hidden] { display: none !important; }
-
-    .demo-shell {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: minmax(320px, 430px) minmax(260px, 360px);
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-      padding: 28px;
-    }
-
-    .context {
-      max-width: 350px;
-      align-self: center;
-    }
-    .context-kicker {
-      margin: 0 0 8px;
-      color: var(--brandPrimary);
-      font-size: .875rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .context h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      font-weight: 500;
-      line-height: 1.06;
-      letter-spacing: -.04em;
-    }
-    .context-copy { margin: 18px 0 0; color: var(--textSecondary); }
-    .context-rule {
-      width: 52px;
-      height: 3px;
-      margin: 24px 0;
-      border: 0;
-      border-radius: 99px;
-      background: var(--accentWarm);
-    }
-    .context-note {
-      margin: 0;
-      padding: 14px 16px;
-      border: 1px solid var(--divider);
-      border-radius: 12px;
-      background: color-mix(in srgb, var(--surface) 65%, transparent);
-      color: var(--textSecondary);
-      font-size: .875rem;
-    }
-
-    .phone {
-      position: relative;
-      width: min(100%, 430px);
-      height: min(880px, calc(100vh - 56px));
-      min-height: 680px;
-      overflow: hidden;
-      isolation: isolate;
-      border: 1px solid var(--divider);
-      border-radius: 38px;
-      background: var(--background);
-      box-shadow: 0 26px 70px color-mix(in srgb, var(--textPrimary) 18%, transparent);
-    }
-
-    .app {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding: max(18px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom));
-    }
-
-    .topbar {
-      position: relative;
-      z-index: 7;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .top-actions { position: relative; display: flex; align-items: center; gap: 2px; }
-    .connection {
-      min-height: 36px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border: 1px solid var(--divider);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--textSecondary);
-      font-size: .8125rem;
-      white-space: nowrap;
-    }
-    .connection-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--brandSecondary);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--brandSecondary) 17%, transparent);
-    }
-    .icon-button {
-      width: 40px;
-      height: 40px;
-      display: inline-grid;
-      place-items: center;
-      flex: 0 0 auto;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-    }
-    .icon-button:hover { background: color-mix(in srgb, var(--surface) 75%, transparent); }
-    .icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-    .entry-menu {
-      position: absolute;
-      z-index: 15;
-      top: 45px;
-      right: 0;
-      width: 220px;
-      display: none;
-      padding: 7px;
-      border: 1px solid var(--divider);
-      border-radius: 16px;
-      background: var(--surface);
-      box-shadow: 0 14px 34px color-mix(in srgb, var(--textPrimary) 14%, transparent);
-    }
-    .entry-menu.open { display: grid; gap: 3px; }
-    .entry-menu button {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 9px 11px;
-      border: 0;
-      border-radius: 11px;
-      background: transparent;
-      cursor: pointer;
-      text-align: left;
-      font-size: .875rem;
-    }
-    .entry-menu button:hover { background: var(--background); }
-    .entry-menu small { color: var(--textSecondary); }
-
-    .persistent-disclosure {
-      flex-shrink: 0;
-      margin: 8px 0 0;
-      padding: 0 4px;
-      color: var(--textSecondary);
-      font-size: .75rem;
-      line-height: 1.45;
-      text-align: center;
-    }
-
-    .scene {
-      position: relative;
-      flex: 1;
-      min-height: 0;
-      margin-top: 8px;
-    }
-
-    .cat-wrap {
-      position: absolute;
-      left: 50%;
-      top: 49%;
-      width: 178px;
-      transform: translate(-50%, -50%);
-      transition: opacity .3s ease, transform .45s ease;
-    }
-    .cat-wrap svg { display: block; width: 100%; overflow: visible; }
-    .cat-eyes-soft, .cat-mouth-soft { opacity: 1; transition: opacity .25s ease; }
-    .cat-eyes-open { opacity: 0; transition: opacity .25s ease; }
-    .cat-eyes-neutral, .cat-mouth-neutral { opacity: 0; transition: opacity .25s ease; }
-    .cat-cheeks { opacity: .7; transition: opacity .25s ease; }
-    [data-expression="attentive"] .cat-eyes-soft { opacity: 0; }
-    [data-expression="attentive"] .cat-eyes-open { opacity: 1; }
-    [data-state="paused"] .cat-eyes-soft,
-    [data-state="paused"] .cat-eyes-open,
-    [data-state="paused"] .cat-mouth-soft,
-    [data-state="crisis"] .cat-eyes-soft,
-    [data-state="crisis"] .cat-eyes-open,
-    [data-state="crisis"] .cat-mouth-soft { opacity: 0; }
-    [data-state="paused"] .cat-eyes-neutral,
-    [data-state="paused"] .cat-mouth-neutral,
-    [data-state="crisis"] .cat-eyes-neutral,
-    [data-state="crisis"] .cat-mouth-neutral { opacity: 1; }
-    [data-state="paused"] .cat-cheeks,
-    [data-state="crisis"] .cat-cheeks { opacity: 0; }
-
-    .signal {
-      position: absolute;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      width: 70px;
-      height: 70px;
-      padding: 0;
-      border: 1px solid var(--divider);
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--surface) 92%, transparent);
-      box-shadow: 0 8px 24px color-mix(in srgb, var(--textPrimary) 8%, transparent);
-      cursor: pointer;
-      transition: border-color .2s ease, transform .2s ease, opacity .2s ease;
-    }
-    .signal:hover, .signal:focus-visible {
-      z-index: 6;
-      border-color: var(--brandPrimary);
-    }
-    .signal-heart { left: 3px; top: 19%; color: var(--critical); }
-    .signal-ecg { right: 1px; top: 34%; color: var(--brandPrimary); }
-    .signal-walk { left: 5px; bottom: 17%; color: var(--textSecondary); }
-    .signal-va { right: 3px; bottom: 12%; color: var(--brandPrimary); }
-    .signal svg { width: 48px; height: 48px; overflow: visible; }
-
-    .heart-glyph {
-      transform-origin: 32px 34px;
-      animation: heartbeat calc(60s / var(--bpm)) ease-in-out infinite;
-    }
-    .heart-number {
-      font-size: 12px;
-      font-weight: 700;
-      fill: var(--surface);
-      text-anchor: middle;
-      dominant-baseline: middle;
-      pointer-events: none;
-    }
-    .heart-number.three-digits { font-size: 9.5px; }
-    @keyframes heartbeat {
-      0%, 44%, 100% { transform: scale(1); }
-      12% { transform: scale(1.13); }
-      24% { transform: scale(.98); }
-    }
-
-    .ecg-window { clip-path: inset(0 round 10px); }
-    .ecg-track { animation: ecg-roll calc(2.7s - var(--arousal) * 1.7s) linear infinite; }
-    @keyframes ecg-roll { to { transform: translateX(-64px); } }
-
-    .walker-pose { display: none; }
-    .walker-pose.active { display: block; }
-    .walker.active { animation: walk-bob calc(1.2s - var(--movement) * .7s) ease-in-out infinite; }
-    @keyframes walk-bob { 50% { transform: translateY(-2px) rotate(1deg); } }
-
-    .va-cursor { transition: cx .55s ease, cy .55s ease; }
-    .va-trail { transition: cx 1.15s ease, cy 1.15s ease; }
-
-    .unknown .signal-heart,
-    .unknown .signal-ecg,
-    .unknown .signal-walk { color: var(--textSecondary); border-style: dashed; opacity: .74; }
-    .unknown .heart-glyph { fill: none; stroke: currentColor; stroke-width: 2; animation: none; }
-    .unknown .heart-number { fill: var(--textSecondary); font-size: 15px; }
-    .unknown .ecg-track, .unknown .walker { animation: none; }
-
-    .messages-veil {
-      display: none;
-      position: absolute;
-      z-index: 3;
-      left: -18px;
-      right: -18px;
-      bottom: 0;
-      height: 68%;
-      pointer-events: none;
-      opacity: 0;
-      background: linear-gradient(to bottom, transparent 0%, rgb(247 245 240 / .62) 42%, rgb(247 245 240 / var(--veil-opacity)) 100%);
-      transition: opacity .3s ease;
-    }
-    [data-state="conversing"] .messages-veil,
-    [data-state="paused"] .messages-veil,
-    [data-state="crisis"] .messages-veil { opacity: 1; }
-
-    .message-stack {
-      position: absolute;
-      z-index: 5;
-      left: 5px;
-      right: 5px;
-      bottom: 8px;
-      max-height: 48%;
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 9px;
-      overflow: hidden;
-      pointer-events: none;
-      -webkit-mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
-      mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
-    }
-    .message {
-      align-self: flex-start;
-      flex-shrink: 0;
-      width: 100%;
-      padding: 3px 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      text-align: left;
-      overflow-wrap: anywhere;
-      pointer-events: auto;
-      cursor: pointer;
-      animation: message-in .36s ease;
-    }
-    .message.user {
-      align-self: flex-start;
-    }
-    .message-stack .message-prefix { display: inline; margin-right: 8px; }
-    .message-prefix {
-      display: block;
-      margin-bottom: 2px;
-      color: var(--textSecondary);
-      font-size: .75rem;
-      font-weight: 700;
-    }
-    .message-text { font-size: .875rem; line-height: 1.45; }
-    @keyframes message-in {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .pinned-notice {
-      position: absolute;
-      z-index: 8;
-      left: 5px;
-      right: 5px;
-      bottom: 8px;
-      display: none;
-      padding: 14px 15px;
-      border: 1px solid var(--caution);
-      border-radius: 16px;
-      background: var(--surface);
-      box-shadow: 0 12px 28px color-mix(in srgb, var(--textPrimary) 13%, transparent);
-    }
-    [data-state="paused"] .pinned-notice.pause { display: block; }
-    .pinned-notice strong { display: block; margin-bottom: 3px; font-size: .9375rem; }
-    .pinned-notice p { margin: 0; color: var(--textSecondary); font-size: .8125rem; }
-    .notice-actions { display: flex; gap: 8px; margin-top: 12px; }
-    .notice-actions button { flex: 1; min-height: 40px; }
-
-    .crisis-card {
-      position: absolute;
-      z-index: 9;
-      inset: auto 5px 8px;
-      display: none;
-      padding: 17px;
-      border: 2px solid var(--critical);
-      border-radius: 20px;
-      background: var(--surface);
-      box-shadow: 0 16px 34px color-mix(in srgb, var(--critical) 18%, transparent);
-    }
-    [data-state="crisis"] .crisis-card { display: block; }
-    .crisis-card .eyebrow { color: var(--critical); }
-    .crisis-card h2 { margin: 3px 0 7px; font-size: 1.125rem; }
-    .crisis-card p { margin: 0; color: var(--textSecondary); font-size: .8125rem; }
-    .crisis-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
-
-    .composer-zone { position: relative; z-index: 10; }
-    .quick-prompts {
-      display: flex;
-      gap: 7px;
-      margin: 0 0 9px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .quick-prompts::-webkit-scrollbar { display: none; }
-    .chip-button {
-      min-height: 34px;
-      flex: 0 0 auto;
-      padding: 6px 11px;
-      border: 1px solid var(--divider);
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--surface) 85%, transparent);
-      color: var(--textSecondary);
-      font-size: .8125rem;
-      cursor: pointer;
-    }
-    .chip-button:hover { border-color: var(--brandPrimary); color: var(--textPrimary); }
-
-    .composer {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 52px;
-      padding: 7px 7px 7px 16px;
-      border: 1px solid var(--divider);
-      border-radius: 999px;
-      background: var(--surface);
-      box-shadow: 0 8px 22px color-mix(in srgb, var(--textPrimary) 6%, transparent);
-    }
-    .composer input {
-      min-width: 0;
-      flex: 1;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--textPrimary);
-      font-size: .9375rem;
-    }
-    .composer input::placeholder { color: var(--textSecondary); opacity: .68; }
-    .send-button {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: var(--brandPrimary);
-      color: var(--surface);
-      cursor: pointer;
-    }
-    .send-button:disabled { opacity: .45; cursor: not-allowed; }
-
-    .secondary-button, .primary-button, .critical-button {
-      min-height: 44px;
-      padding: 9px 14px;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: .875rem;
-      font-weight: 700;
-    }
-    .secondary-button { border: 1px solid var(--divider); background: var(--surface); }
-    .primary-button { border: 1px solid var(--brandPrimary); background: var(--brandPrimary); color: var(--surface); }
-    .critical-button { border: 1px solid var(--critical); background: var(--critical); color: var(--surface); }
-
-    .scrim {
-      position: absolute;
-      z-index: 19;
-      inset: 0;
-      opacity: 0;
-      visibility: hidden;
-      border: 0;
-      background: color-mix(in srgb, var(--textPrimary) 34%, transparent);
-      transition: opacity .25s ease, visibility .25s ease;
-    }
-    .app[data-state="detail"] ~ .scrim, .phone.transcript-open .scrim { opacity: 1; visibility: visible; }
-
-    .sheet {
-      position: absolute;
-      z-index: 20;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      max-height: 78%;
-      padding: 12px 22px max(22px, env(safe-area-inset-bottom));
-      overflow-y: auto;
-      border-radius: 28px 28px 38px 38px;
-      background: var(--surface);
-      transform: translateY(104%);
-      transition: transform .36s cubic-bezier(.22,.8,.28,1);
-    }
-    .detail-sheet { visibility: hidden; }
-    .app[data-state="detail"] ~ .detail-sheet { transform: translateY(0); visibility: visible; }
-    .phone.transcript-open .transcript-sheet { transform: translateY(0); }
-    .grabber {
-      display: grid; place-items: center; width: 100%; height: 36px;
-      margin: -8px auto 6px; padding: 0; border: 0; background: transparent;
-      cursor: grab; touch-action: none; user-select: none;
-    }
-    .grabber::after { content: ''; width: 38px; height: 4px; border-radius: 9px; background: var(--divider); }
-    .grabber:hover::after, .grabber:focus-visible::after { background: var(--brandPrimary); }
-    .sheet.dragging { transition: none; }
-    .sheet.dragging .grabber { cursor: grabbing; }
-    .sheet-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .sheet h2 { margin: 0; font-size: 1.125rem; }
-    .sheet-kicker, .eyebrow { margin: 0; color: var(--textSecondary); font-size: .75rem; font-weight: 700; letter-spacing: .06em; }
-    .metric-line { display: flex; align-items: baseline; gap: 8px; margin: 12px 0; }
-    .metric-value { font-size: 2.5rem; font-weight: 500; letter-spacing: -.04em; }
-    .metric-unit { color: var(--textSecondary); font-size: .8125rem; }
-    .sparkline { width: 100%; height: 62px; display: block; }
-    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding-top: 16px; border-top: 1px solid var(--divider); }
-    .detail-grid p { margin: 0; }
-    .detail-label { color: var(--textSecondary); font-size: .75rem; }
-    .detail-data { margin-top: 3px !important; font-size: .9375rem; }
-    .sheet-privacy { margin: 14px 0 0; color: var(--textSecondary); opacity: .72; text-align: center; font-size: .75rem; }
-    .sheet .primary-button { width: 100%; margin-top: 18px; }
-
-    .transcript-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-    .transcript-row { padding: 8px 0; overflow-wrap: anywhere; }
-    .empty-transcript { padding: 32px 0; color: var(--textSecondary); text-align: center; }
-
-    .director {
-      position: fixed;
-      z-index: 50;
-      right: 18px;
-      bottom: 18px;
-      width: min(350px, calc(100vw - 36px));
-      border: 1px solid var(--divider);
-      border-radius: 20px;
-      background: color-mix(in srgb, var(--surface) 96%, transparent);
-      box-shadow: 0 18px 45px color-mix(in srgb, var(--textPrimary) 15%, transparent);
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-    }
-    .director-toggle {
-      width: 100%;
-      min-height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 16px;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      font-weight: 700;
-    }
-    .director-toggle span:last-child { color: var(--textSecondary); font-size: .8125rem; font-weight: 500; }
-    .director-body { display: none; max-height: min(72vh, 620px); overflow-y: auto; padding: 0 16px 16px; }
-    .director.open .director-body { display: block; }
-    .control-group { padding: 13px 0; border-top: 1px solid var(--divider); }
-    .control-label { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; color: var(--textSecondary); font-size: .8125rem; }
-    .control-label output { color: var(--textPrimary); font-weight: 700; }
-    input[type="range"] { width: 100%; accent-color: var(--brandPrimary); }
-    .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; padding: 4px; border: 1px solid var(--divider); border-radius: 14px; background: var(--background); }
-    .segmented button { min-height: 38px; padding: 6px; border: 0; border-radius: 10px; background: transparent; color: var(--textSecondary); cursor: pointer; font-size: .8125rem; }
-    .segmented button[aria-pressed="true"] { background: var(--surface); color: var(--textPrimary); box-shadow: 0 2px 8px color-mix(in srgb, var(--textPrimary) 8%, transparent); }
-    .select-label { display: grid; gap: 7px; color: var(--textSecondary); font-size: .8125rem; }
-    select { min-height: 42px; padding: 8px 10px; border: 1px solid var(--divider); border-radius: 12px; background: var(--surface); color: var(--textPrimary); }
-    .director-hint { margin: 9px 0 0; color: var(--textSecondary); opacity: .72; font-size: .75rem; }
-
-    .toast {
-      position: fixed;
-      z-index: 70;
-      left: 50%;
-      bottom: 28px;
-      max-width: calc(100vw - 36px);
-      padding: 11px 16px;
-      border: 1px solid var(--divider);
-      border-radius: 999px;
-      background: var(--textPrimary);
-      color: var(--surface);
-      font-size: .8125rem;
-      transform: translate(-50%, 20px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-    @media (max-width: 850px) {
-      .demo-shell { grid-template-columns: 1fr; padding: 14px; }
-      .context { display: none; }
-      .phone { justify-self: center; height: calc(100vh - 28px); min-height: 620px; }
-      .director { right: 10px; bottom: 10px; }
-    }
-    @media (max-height: 730px) {
-      .phone { min-height: 600px; }
-      .quick-prompts { margin-bottom: 6px; }
-      .cat-wrap { width: 146px; }
-      .signal { width: 62px; height: 62px; }
-      .signal svg { width: 43px; height: 43px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="demo-shell">
@@ -612,15 +13,16 @@
       <div class="app" id="app" data-state="home">
         <header class="topbar">
           <div class="connection" id="connectionStatus">
-            <span class="connection-dot" aria-hidden="true" style="background: var(--brandSecondary);"></span>
+            <span class="connection-dot" aria-hidden="true"></span>
             <span id="connectionText">手錶已連線 · 12 秒前</span>
           </div>
           <div class="top-actions">
+            <button class="chip-button" id="signalLayoutToggle" type="button" aria-expanded="true" aria-label="收合訊號到頂部橫列">收合</button>
             <button class="icon-button" id="openTranscriptTop" type="button" aria-label="展開完整訊息串">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12M6 12h12M6 16h8"></path></svg>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12M6 12h12M6 16h8"/></svg>
             </button>
             <button class="icon-button" id="entryMenuToggle" type="button" aria-label="開啟其他功能入口" aria-expanded="false">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle></svg>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
             </button>
             <div class="entry-menu" id="entryMenu">
               <button type="button" data-detail="review"><span>健康回顧</span><small>入口示意</small></button>
@@ -634,38 +36,38 @@
           <div class="cat-wrap" aria-label="HealthAI 貓角色">
             <svg viewBox="0 0 180 230" role="img" aria-labelledby="catTitle">
               <title id="catTitle">一隻坐著的柔和色貓咪</title>
-              <ellipse cx="90" cy="208" rx="68" ry="12" fill="var(--divider)" opacity=".72"></ellipse>
-              <rect x="12" y="12" width="156" height="198" rx="78" fill="var(--surface)"></rect>
-              <path d="M87 70 51 39 54 84Z" fill="var(--accentWarm)"></path>
-              <path d="M93 70 129 39 126 84Z" fill="var(--accentWarm)"></path>
-              <path d="M48 194c0-62 16-91 42-91s42 29 42 91Z" fill="var(--accentWarm)"></path>
-              <path d="M127 198c39 4 53-19 45-51" fill="none" stroke="var(--accentWarm)" stroke-width="13" stroke-linecap="round"></path>
-              <circle cx="90" cy="84" r="39" fill="var(--accentWarm)"></circle>
+              <ellipse cx="90" cy="208" rx="68" ry="12" fill="var(--divider)" opacity=".72"/>
+              <rect x="12" y="12" width="156" height="198" rx="78" fill="var(--surface)"/>
+              <path d="M87 70 51 39 54 84Z" fill="var(--accentWarm)"/>
+              <path d="M93 70 129 39 126 84Z" fill="var(--accentWarm)"/>
+              <path d="M48 194c0-62 16-91 42-91s42 29 42 91Z" fill="var(--accentWarm)"/>
+              <path d="M127 198c39 4 53-19 45-51" fill="none" stroke="var(--accentWarm)" stroke-width="13" stroke-linecap="round"/>
+              <circle cx="90" cy="84" r="39" fill="var(--accentWarm)"/>
               <g class="cat-eyes-soft" fill="none" stroke="var(--textPrimary)" stroke-width="3" stroke-linecap="round">
-                <path d="M70 82q6 7 12 0M98 82q6 7 12 0"></path>
+                <path d="M70 82q6 7 12 0M98 82q6 7 12 0"/>
               </g>
-              <g class="cat-eyes-open" fill="var(--textPrimary)"><circle cx="76" cy="84" r="2.5"></circle><circle cx="104" cy="84" r="2.5"></circle></g>
+              <g class="cat-eyes-open" fill="var(--textPrimary)"><circle cx="76" cy="84" r="2.5"/><circle cx="104" cy="84" r="2.5"/></g>
               <g class="cat-eyes-neutral" fill="none" stroke="var(--textPrimary)" stroke-width="3" stroke-linecap="round">
-                <path d="M70 84h12M98 84h12"></path>
+                <path d="M70 84h12M98 84h12"/>
               </g>
-              <path d="m85 96 10 0-5 6Z" fill="var(--textPrimary)"></path>
-              <path class="cat-mouth-soft" d="M90 103q-7 8-13 1m13-1q7 8 13 1" fill="none" stroke="var(--textPrimary)" stroke-width="2" stroke-linecap="round"></path>
-              <path class="cat-mouth-neutral" d="M83 107h14" fill="none" stroke="var(--textPrimary)" stroke-width="2" stroke-linecap="round"></path>
-              <g class="cat-cheeks" fill="var(--critical)" opacity=".22"><ellipse cx="67" cy="101" rx="9" ry="4"></ellipse><ellipse cx="113" cy="101" rx="9" ry="4"></ellipse></g>
+              <path d="m85 96 10 0-5 6Z" fill="var(--textPrimary)"/>
+              <path class="cat-mouth-soft" d="M90 103q-7 8-13 1m13-1q7 8 13 1" fill="none" stroke="var(--textPrimary)" stroke-width="2" stroke-linecap="round"/>
+              <path class="cat-mouth-neutral" d="M83 107h14" fill="none" stroke="var(--textPrimary)" stroke-width="2" stroke-linecap="round"/>
+              <g class="cat-cheeks" fill="var(--critical)" opacity=".22"><ellipse cx="67" cy="101" rx="9" ry="4"/><ellipse cx="113" cy="101" rx="9" ry="4"/></g>
             </svg>
           </div>
 
           <button class="signal signal-heart" type="button" data-detail="heart" aria-label="心率 72，點擊查看細節">
             <svg viewBox="0 0 64 64" aria-hidden="true">
-              <path class="heart-glyph" d="M32 53 13 35C1 23 9 8 21 11c5 1 9 5 11 9 2-4 6-8 11-9 12-3 20 12 8 24Z" fill="currentColor"></path>
+              <path class="heart-glyph" d="M32 53 13 35C1 23 9 8 21 11c5 1 9 5 11 9 2-4 6-8 11-9 12-3 20 12 8 24Z" fill="currentColor"/>
               <text class="heart-number" id="heartNumber" x="32" y="32">72</text>
             </svg>
           </button>
 
-          <button class="signal signal-ecg" type="button" data-detail="arousal" aria-label="生理喚起，點擊查看說明">
+          <button class="signal signal-ecg" type="button" data-detail="arousal" aria-label="生理喚起偏低，點擊查看說明">
             <svg class="ecg-window" viewBox="0 0 64 64" aria-hidden="true">
               <g class="ecg-track" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                <path id="ecgPath" d="M-64 32H-48L-42 29L-38 32L-34 20L-28 44L-22 32H0 M0 32H16L22 29L26 32L30 20L36 44L42 32H64 M64 32H80L86 29L90 32L94 20L100 44L106 32H128 M128 32H144L150 29L154 32L158 20L164 44L170 32H192"></path>
+                <path id="ecgPath" d="M0 32H64"/>
               </g>
             </svg>
           </button>
@@ -673,28 +75,28 @@
           <button class="signal signal-walk" type="button" data-detail="movement" aria-label="動作狀態靜止，點擊查看說明">
             <svg class="walker" viewBox="0 0 64 64" aria-hidden="true">
               <g id="poseStand" class="walker-pose active" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="32" cy="14" r="5"></circle><path d="M32 20v20M23 29l9-5 9 5M32 40l-7 13M32 40l7 13"></path>
+                <circle cx="32" cy="14" r="5"/><path d="M32 20v20M23 29l9-5 9 5M32 40l-7 13M32 40l7 13"/>
               </g>
               <g id="poseWalk" class="walker-pose" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="35" cy="12" r="5"></circle><path d="m33 19-5 18M29 25l-10 8M30 24l12 7M28 37l-12 13M28 37l13 12"></path>
+                <circle cx="35" cy="12" r="5"/><path d="m33 19-5 18M29 25l-10 8M30 24l12 7M28 37l-12 13M28 37l13 12"/>
               </g>
               <g id="poseRun" class="walker-pose" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="39" cy="12" r="5"></circle><path d="m35 19-10 17M31 25l-14 2M31 24l11 9M25 36l-15 6M25 36l12 15"></path>
+                <circle cx="39" cy="12" r="5"/><path d="m35 19-10 17M31 25l-14 2M31 24l11 9M25 36l-15 6M25 36l12 15"/>
               </g>
             </svg>
           </button>
 
           <button class="signal signal-va" type="button" data-detail="va" aria-label="情緒座標，點擊查看說明">
             <svg viewBox="0 0 64 64" aria-hidden="true">
-              <circle cx="32" cy="32" r="23" fill="none" stroke="var(--divider)"></circle>
-              <path d="M32 7v50M7 32h50" stroke="currentColor" stroke-width="1" opacity=".7"></path>
-              <circle class="va-trail" id="vaTrail" cx="20" cy="43" r="5" fill="var(--caution)" opacity=".22"></circle>
-              <circle class="va-cursor" id="vaCursor" cx="25" cy="39" r="5" fill="var(--accentWarm)"></circle>
+              <circle cx="32" cy="32" r="23" fill="none" stroke="var(--divider)"/>
+              <path d="M32 7v50M7 32h50" stroke="currentColor" stroke-width="1" opacity=".7"/>
+              <circle class="va-trail" id="vaTrail" cx="36" cy="27" r="5" fill="var(--caution)" opacity=".22"/>
+              <circle class="va-cursor" id="vaCursor" cx="39" cy="24" r="5" fill="var(--accentWarm)"/>
             </svg>
           </button>
 
           <div class="messages-veil" aria-hidden="true"></div>
-          <div class="message-stack" id="messageStack" aria-live="polite" aria-label="最近的訊息" style="mask-image: linear-gradient(to top, black 0%, black 18%, transparent 100%);"></div>
+          <div class="message-stack" id="messageStack" aria-live="polite" aria-label="最近的訊息"></div>
 
           <aside class="pinned-notice pause" role="status">
             <strong>先停一下，確認現在的感受</strong>
@@ -725,7 +127,7 @@
           <form class="composer" id="composer">
             <input id="messageInput" type="text" maxlength="120" autocomplete="off" aria-label="輸入示範訊息" placeholder="想說點什麼">
             <button class="send-button" id="sendButton" type="submit" aria-label="送出示範訊息">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
             </button>
           </form>
         </section>
@@ -734,7 +136,7 @@
 
       <button class="scrim" id="scrim" type="button" aria-label="關閉面板"></button>
 
-      <section class="sheet detail-sheet" id="detailSheet" aria-labelledby="detailTitle" style="">
+      <section class="sheet detail-sheet" id="detailSheet" aria-labelledby="detailTitle">
         <button class="grabber" type="button" aria-label="向下拖拉或點擊收合細節面板"></button>
         <div class="sheet-header">
           <div>
@@ -742,7 +144,7 @@
             <h2 id="detailTitle">靜息心率</h2>
           </div>
           <button class="icon-button" id="closeDetail" type="button" aria-label="關閉細節卡">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
           </button>
         </div>
         <div class="metric-line">
@@ -751,15 +153,18 @@
         </div>
         <p id="detailDescription" class="context-copy">數字放在心形中央，方便在動畫停止時仍能辨認目前狀態。</p>
         <svg class="sparkline" id="sparkline" viewBox="0 0 300 62" aria-label="示意趨勢圖">
-          <polyline points="4,41 52,26 100,47 148,16 196,34 244,10 296,23" fill="none" stroke="var(--brandPrimary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
-          <circle cx="296" cy="23" r="5" fill="var(--brandPrimary)"></circle>
+          <polyline points="4,41 52,26 100,47 148,16 196,34 244,10 296,23" fill="none" stroke="var(--brandPrimary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="296" cy="23" r="5" fill="var(--brandPrimary)"/>
         </svg>
-        <div class="detail-grid" id="detailGrid"><div><p class="detail-label">涵蓋率</p><p class="detail-data">86%</p></div><div><p class="detail-label">量測來源</p><p class="detail-data">Apple Watch（示意）</p></div></div>
+        <div class="detail-grid" id="detailGrid">
+          <div><p class="detail-label">涵蓋率</p><p class="detail-data">86%</p></div>
+          <div><p class="detail-label">量測來源</p><p class="detail-data">Apple Watch（示意）</p></div>
+        </div>
         <button class="primary-button" id="talkFromDetail" type="button">聊聊這件事</button>
         <p class="sheet-privacy">介面 Demo 不會讀取或保存任何健康資料</p>
       </section>
 
-      <section class="sheet transcript-sheet" id="transcriptSheet" aria-labelledby="transcriptTitle" style="">
+      <section class="sheet transcript-sheet" id="transcriptSheet" aria-labelledby="transcriptTitle">
         <button class="grabber" type="button" aria-label="向下拖拉或點擊收合聊天面板"></button>
         <div class="sheet-header">
           <div>
@@ -767,7 +172,7 @@
             <h2 id="transcriptTitle">剛才的對話</h2>
           </div>
           <button class="icon-button" id="closeTranscript" type="button" aria-label="收起完整訊息串">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
           </button>
         </div>
         <div class="transcript-list" id="transcriptList">
@@ -785,8 +190,8 @@
     </aside>
   </main>
 
-  <aside class="director open" id="director" aria-label="Demo 導播面板">
-    <button class="director-toggle" id="directorToggle" type="button" aria-expanded="true">
+  <aside class="director" id="director" aria-label="Demo 導播面板">
+    <button class="director-toggle" id="directorToggle" type="button" aria-expanded="false">
       <span>導播面板</span><span id="directorSummary">正常 · 72 bpm</span>
     </button>
     <div class="director-body">
@@ -799,7 +204,7 @@
         <input id="arousal" type="range" min="0" max="1" value="0.28" step="0.01">
       </div>
       <div class="control-group">
-        <div class="control-label"><label for="movement">動作</label><output id="movementOut">靜止 · 0.05</output></div>
+        <div class="control-label"><label for="movement">動作</label><output id="movementOut">靜止 · 0.08</output></div>
         <input id="movement" type="range" min="0" max="1" value="0.08" step="0.01">
       </div>
       <div class="control-group">
@@ -829,361 +234,12 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    (() => {
-      const app = document.querySelector('#app');
-      const phone = document.querySelector('#phone');
-      const root = document.documentElement;
-      const messageStack = document.querySelector('#messageStack');
-      const transcriptList = document.querySelector('#transcriptList');
-      const input = document.querySelector('#messageInput');
-      const sendButton = document.querySelector('#sendButton');
-      const toast = document.querySelector('#toast');
-      const director = document.querySelector('#director');
-      let previousState = 'home';
-      let activeDetail = 'heart';
-      let scriptIndex = 0;
-      let toastTimer;
-      let touchStartY = null;
-
-      const transcript = [];
-      const scriptedReplies = [
-        '你願意從昨晚開始說嗎？不用整理得很完整。',
-        '聽起來這幾天休息得不太夠。我們先慢一點，確認一下現在的感受。',
-        '好，我會跟著你的速度。現在比較想談睡眠，還是先安靜一下？',
-        '謝謝你說出來。你不需要為了完成對話而繼續。',
-        '我們先把對話停在這裡。你的安全比繼續回想更重要。',
-        '收到。這個示範不會保存剛才的內容，關閉分頁後就會消失。',
-        '今天先到這裡也可以。你可以把注意力放回呼吸和身邊的環境。'
-      ];
-
-      const details = {
-        heart: {
-          kicker: '近 7 天 · 虛構資料', title: '靜息心率', unit: 'bpm · 比上週低 3%',
-          description: '數字放在心形中央，方便在動畫停止時仍能辨認目前狀態。',
-          grid: [['涵蓋率', '86%'], ['量測來源', 'Apple Watch（示意）']], sparkline: true
-        },
-        arousal: {
-          kicker: '目前訊號 · 非情緒判讀', title: '生理喚起', unit: '0 到 1 的示意強度',
-          description: '波形的振幅與密度一起改變；它只描述身體訊號，不替你判斷情緒。',
-          grid: [['低強度', '平緩長波'], ['高強度', '高頻尖波']], sparkline: false
-        },
-        movement: {
-          kicker: '目前訊號 · 0.20 以下靜止', title: '動作狀態', unit: '站立／走路／跑動',
-          description: '姿勢本身就能傳達強度，關閉動畫時仍可分辨，不只依賴速度。',
-          grid: [['資料範圍', '0.00–1.00'], ['目前門檻', '0.20']], sparkline: false
-        },
-        va: {
-          kicker: '最近 30 秒 · 虛構座標', title: '情緒座標', unit: '方向與強度示意',
-          description: '游標與殘影讓變化方向可見；這不是診斷，也不取代你的自我感受。',
-          grid: [['橫軸', '愉悅程度'], ['縱軸', '喚起程度']], sparkline: false
-        },
-        review: {
-          kicker: '入口示意 · 不讀取真實資料', title: '健康回顧', unit: '完整內容不在 Demo 範圍',
-          description: '正式版本預計整理一段期間的健康趨勢；這裡只保留入口，用來判斷單頁導覽是否容易理解。',
-          grid: [['期間', '1／7／28 天'], ['資料', '全部為虛構示意']], sparkline: false
-        },
-        records: {
-          kicker: '入口示意 · 不寫入儲存', title: '紀錄', unit: '關閉分頁後不留下內容',
-          description: '正式版本預計包含對話、行動實驗與回憶摘要；Demo 不建立或保存任何紀錄。',
-          grid: [['對話紀錄', '未載入'], ['行動實驗', '未載入']], sparkline: false
-        },
-        settings: {
-          kicker: '入口示意 · 無真實權限', title: '設定', unit: '本 Demo 沒有可保存的偏好',
-          description: '正式版本才會呈現個人健康資料、語音、隱私與資料管理選項。',
-          grid: [['裝置資料', '未連接'], ['本機儲存', '未使用']], sparkline: false
-        }
-      };
-
-      function showToast(text) {
-        window.clearTimeout(toastTimer);
-        toast.textContent = text;
-        toast.classList.add('show');
-        toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2600);
-      }
-
-      function visiblePolicyLabel(state) {
-        return state === 'paused' ? '暫停' : state === 'crisis' ? '危機' : '正常';
-      }
-
-      function setState(state) {
-        if (state !== 'detail') previousState = state;
-        app.dataset.state = state;
-        const blocked = state === 'paused' || state === 'crisis';
-        input.disabled = blocked;
-        sendButton.disabled = blocked;
-        input.placeholder = state === 'paused' ? '先確認現在的感受' : state === 'crisis' ? '安全提醒顯示中' : '想說點什麼';
-        const policyState = (state === 'detail' ? previousState : state) === 'home' ? 'conversing' : (state === 'detail' ? previousState : state);
-        document.querySelectorAll('[data-policy]').forEach(button => {
-          button.setAttribute('aria-pressed', String(button.dataset.policy === policyState));
-        });
-        updateDirectorSummary();
-      }
-
-      function updateDirectorSummary() {
-        const state = app.dataset.state === 'detail' ? previousState : app.dataset.state;
-        document.querySelector('#directorSummary').textContent = `${visiblePolicyLabel(state)} · ${document.querySelector('#heartRate').value} bpm`;
-      }
-
-      function appendMessage(role, text) {
-        transcript.push({ role, text });
-        const message = document.createElement('button');
-        message.type = 'button';
-        message.className = `message ${role}`;
-        message.setAttribute('aria-label', `${role === 'user' ? '你' : 'HealthAI，AI 生成'}：${text}。點擊展開完整訊息串`);
-        message.innerHTML = `<span class="message-prefix">${role === 'user' ? '你' : 'HealthAI · AI 生成'}</span><span class="message-text"></span>`;
-        message.querySelector('.message-text').textContent = text;
-        message.addEventListener('click', openTranscript);
-        messageStack.prepend(message);
-        renderTranscript();
-      }
-
-      function renderTranscript() {
-        transcriptList.replaceChildren();
-        if (!transcript.length) {
-          const empty = document.createElement('p');
-          empty.className = 'empty-transcript';
-          empty.textContent = '送出一句話後，完整內容會保留在這裡。';
-          transcriptList.append(empty);
-          return;
-        }
-        transcript.forEach(item => {
-          const row = document.createElement('div');
-          row.className = `transcript-row ${item.role}`;
-          const prefix = document.createElement('span');
-          prefix.className = 'message-prefix';
-          prefix.textContent = item.role === 'user' ? '你' : 'HealthAI · AI 生成';
-          const text = document.createElement('span');
-          text.className = 'message-text';
-          text.textContent = item.text;
-          row.append(prefix, text);
-          transcriptList.append(row);
-        });
-      }
-
-      function openTranscript() {
-        if (app.dataset.state === 'detail') closeDetail();
-        phone.classList.add('transcript-open');
-        document.querySelector('#closeTranscript').focus({ preventScroll: true });
-      }
-
-      function closeTranscript() {
-        phone.classList.remove('transcript-open');
-      }
-
-      function sendMessage(text) {
-        const value = text.trim();
-        if (!value || input.disabled) return;
-        if (app.dataset.state === 'home') setState('conversing');
-        appendMessage('user', value);
-        input.value = '';
-        const reply = scriptedReplies[scriptIndex % scriptedReplies.length];
-        scriptIndex += 1;
-        window.setTimeout(() => {
-          appendMessage('ai', reply);
-          app.dataset.expression = scriptIndex % 2 === 0 ? 'attentive' : 'soft';
-          if (scriptIndex === 2) setState('paused');
-          if (scriptIndex === 5) setState('crisis');
-        }, 420);
-      }
-
-      function openDetail(kind) {
-        activeDetail = kind;
-        previousState = app.dataset.state === 'detail' ? previousState : app.dataset.state;
-        const data = details[kind];
-        document.querySelector('#detailKicker').textContent = data.kicker;
-        document.querySelector('#detailTitle').textContent = data.title;
-        document.querySelector('#detailDescription').textContent = data.description;
-        document.querySelector('#detailUnit').textContent = data.unit;
-        document.querySelector('#sparkline').hidden = !data.sparkline;
-        document.querySelector('#talkFromDetail').hidden = kind !== 'heart';
-        document.querySelector('#detailGrid').innerHTML = data.grid.map(([label, value]) => `<div><p class="detail-label">${label}</p><p class="detail-data">${value}</p></div>`).join('');
-        updateDetailValue();
-        setState('detail');
-        document.querySelector('#closeDetail').focus({ preventScroll: true });
-      }
-
-      function closeDetail() {
-        if (app.dataset.state !== 'detail') return;
-        setState(previousState === 'detail' ? 'home' : previousState);
-      }
-
-      // Shared handle interaction for the conversation sheet and every detail view.
-      function bindSheetHandle(sheet, close) {
-        const handle = sheet.querySelector('.grabber');
-        let drag = null;
-        let suppressClick = false;
-        handle.addEventListener('pointerdown', event => {
-          if (!event.isPrimary || event.button !== 0) return;
-          suppressClick = false;
-          drag = { id: event.pointerId, y: event.clientY, distance: 0, moved: false,
-            threshold: Math.min(100, sheet.getBoundingClientRect().height * .25) };
-          handle.setPointerCapture(event.pointerId);
-          sheet.classList.add('dragging');
-        });
-        handle.addEventListener('pointermove', event => {
-          if (!drag || event.pointerId !== drag.id) return;
-          const delta = event.clientY - drag.y;
-          drag.moved ||= Math.abs(delta) > 5;
-          drag.distance = Math.max(0, delta);
-          sheet.style.transform = `translateY(${drag.distance}px)`;
-        });
-        function finish(event) {
-          if (!drag || event.pointerId !== drag.id) return;
-          const dismiss = event.type === 'pointerup' && drag.distance >= drag.threshold;
-          suppressClick = drag.moved || event.type !== 'pointerup';
-          drag = null;
-          sheet.classList.remove('dragging');
-          sheet.style.removeProperty('transform');
-          if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
-          if (dismiss) close();
-        }
-        handle.addEventListener('pointerup', finish);
-        handle.addEventListener('pointercancel', finish);
-        handle.addEventListener('lostpointercapture', finish);
-        handle.addEventListener('click', event => {
-          if (suppressClick && event.detail !== 0) { suppressClick = false; return; }
-          close();
-        });
-      }
-      bindSheetHandle(document.querySelector('#detailSheet'), closeDetail);
-      bindSheetHandle(document.querySelector('#transcriptSheet'), closeTranscript);
-
-      function updateDetailValue() {
-        const value = document.querySelector('#detailValue');
-        if (activeDetail === 'heart') value.textContent = document.querySelector('#heartRate').value;
-        if (activeDetail === 'arousal') value.textContent = Number(document.querySelector('#arousal').value).toFixed(2);
-        if (activeDetail === 'movement') value.textContent = movementLabel(Number(document.querySelector('#movement').value));
-        if (activeDetail === 'va') value.textContent = '移動中';
-        if (['review', 'records', 'settings'].includes(activeDetail)) value.textContent = '入口';
-      }
-
-      function movementLabel(value) {
-        return value <= .2 ? '靜止' : value < .65 ? '走路' : '跑動';
-      }
-
-      function updateHeart() {
-        const rate = Number(document.querySelector('#heartRate').value);
-        root.style.setProperty('--bpm', rate);
-        const number = document.querySelector('#heartNumber');
-        number.textContent = rate;
-        number.classList.toggle('three-digits', rate >= 100);
-        document.querySelector('#heartRateOut').textContent = `${rate} bpm`;
-        document.querySelector('.signal-heart').setAttribute('aria-label', `心率 ${rate}，點擊查看細節`);
-        updateDetailValue();
-        updateDirectorSummary();
-      }
-
-      function updateArousal() {
-        const value = Number(document.querySelector('#arousal').value);
-        root.style.setProperty('--arousal', value);
-        document.querySelector('#arousalOut').textContent = value.toFixed(2);
-        const amplitude = Math.round(7 + value * 17);
-        // Absolute coordinates keep every cycle centered on y=32 without accumulated drift.
-        // A complete 64-unit cycle matches the CSS animation's translation distance.
-        const cycles = [-64, 0, 64, 128].map(x =>
-          `M${x} 32H${x + 16}L${x + 22} 29L${x + 26} 32L${x + 30} ${32 - amplitude}L${x + 36} ${32 + amplitude}L${x + 42} 32H${x + 64}`
-        );
-        document.querySelector('#ecgPath').setAttribute('d', cycles.join(' '));
-        const label = value < .34 ? '偏低' : value < .67 ? '中等' : '偏高';
-        document.querySelector('.signal-ecg').setAttribute('aria-label', `生理喚起${label}，點擊查看說明`);
-        const cx = 16 + Math.round(value * 32);
-        const cy = 47 - Math.round(value * 29);
-        document.querySelector('#vaCursor').setAttribute('cx', cx);
-        document.querySelector('#vaCursor').setAttribute('cy', cy);
-        document.querySelector('#vaTrail').setAttribute('cx', Math.max(12, cx - 5));
-        document.querySelector('#vaTrail').setAttribute('cy', Math.min(52, cy + 4));
-        updateDetailValue();
-      }
-
-      function updateMovement() {
-        const value = Number(document.querySelector('#movement').value);
-        root.style.setProperty('--movement', value);
-        const pose = value <= .2 ? 'poseStand' : value < .65 ? 'poseWalk' : 'poseRun';
-        document.querySelectorAll('.walker-pose').forEach(node => node.classList.toggle('active', node.id === pose));
-        document.querySelector('.walker').classList.toggle('active', value > .2);
-        const label = movementLabel(value);
-        document.querySelector('#movementOut').textContent = `${label} · ${value.toFixed(2)}`;
-        document.querySelector('.signal-walk').setAttribute('aria-label', `動作狀態${label}，點擊查看說明`);
-        updateDetailValue();
-      }
-
-      function updateVeil() {
-        const value = Number(document.querySelector('#veil').value);
-        const mask = `linear-gradient(to top, black 0%, black ${Math.round((1 - value) * 100)}%, transparent 100%)`;
-        messageStack.style.maskImage = mask;
-        messageStack.style.webkitMaskImage = mask;
-        document.querySelector('#veilOut').textContent = value.toFixed(2);
-      }
-
-      function updateWatchStatus() {
-        const status = document.querySelector('#watchStatus').value;
-        const unknown = status !== 'connected';
-        app.classList.toggle('unknown', unknown);
-        document.querySelector('#connectionText').textContent = status === 'connected' ? '手錶已連線 · 12 秒前' : status === 'offline' ? '手錶未連線 · 尚無資料' : '健康資料權限被拒';
-        document.querySelector('.connection-dot').style.background = status === 'connected' ? 'var(--brandSecondary)' : status === 'offline' ? 'var(--textSecondary)' : 'var(--critical)';
-        document.querySelector('#heartNumber').textContent = unknown ? '?' : document.querySelector('#heartRate').value;
-        document.querySelector('.signal-heart').setAttribute('aria-label', unknown ? '心率未知，沒有量測資料' : `心率 ${document.querySelector('#heartRate').value}，點擊查看細節`);
-        document.querySelector('.signal-ecg').setAttribute('aria-label', unknown ? '生理喚起未知，沒有量測資料' : '生理喚起，點擊查看說明');
-        document.querySelector('.signal-walk').setAttribute('aria-label', unknown ? '動作狀態未知，沒有量測資料' : `動作狀態${movementLabel(Number(document.querySelector('#movement').value))}，點擊查看說明`);
-      }
-
-      document.querySelector('#composer').addEventListener('submit', event => {
-        event.preventDefault();
-        sendMessage(input.value);
-      });
-      document.querySelectorAll('[data-prompt]').forEach(button => button.addEventListener('click', () => sendMessage(button.dataset.prompt)));
-      document.querySelectorAll('[data-detail]').forEach(button => button.addEventListener('click', () => openDetail(button.dataset.detail)));
-      document.querySelector('#entryMenuToggle').addEventListener('click', () => {
-        const menu = document.querySelector('#entryMenu');
-        const open = menu.classList.toggle('open');
-        document.querySelector('#entryMenuToggle').setAttribute('aria-expanded', String(open));
-      });
-      document.querySelector('#entryMenu').addEventListener('click', () => {
-        document.querySelector('#entryMenu').classList.remove('open');
-        document.querySelector('#entryMenuToggle').setAttribute('aria-expanded', 'false');
-      });
-      document.querySelector('#closeDetail').addEventListener('click', closeDetail);
-      document.querySelector('#scrim').addEventListener('click', () => { closeDetail(); closeTranscript(); });
-      document.querySelector('#openTranscriptTop').addEventListener('click', openTranscript);
-      document.querySelector('#closeTranscript').addEventListener('click', closeTranscript);
-      document.querySelector('#talkFromDetail').addEventListener('click', () => { closeDetail(); input.focus(); });
-
-      document.querySelector('#directorToggle').addEventListener('click', () => {
-        const open = director.classList.toggle('open');
-        document.querySelector('#directorToggle').setAttribute('aria-expanded', String(open));
-      });
-      document.querySelectorAll('[data-policy]').forEach(button => button.addEventListener('click', () => setState(button.dataset.policy)));
-      document.querySelectorAll('[data-resume]').forEach(button => button.addEventListener('click', () => {
-        setState('conversing');
-        showToast(button.dataset.resume === 'ok' ? '回到示範對話' : '已放慢節奏；你仍可隨時停下');
-      }));
-      document.querySelector('#fakeCall').addEventListener('click', () => showToast('介面示範：不會撥號。若有立即危險，請聯絡當地緊急服務。'));
-      document.querySelector('#markSafe').addEventListener('click', () => { setState('conversing'); showToast('已回到示範對話'); });
-
-      document.querySelector('#heartRate').addEventListener('input', updateHeart);
-      document.querySelector('#arousal').addEventListener('input', updateArousal);
-      document.querySelector('#movement').addEventListener('input', updateMovement);
-      document.querySelector('#veil').addEventListener('input', updateVeil);
-      document.querySelector('#watchStatus').addEventListener('change', updateWatchStatus);
-
-      document.querySelector('#scene').addEventListener('touchstart', event => { touchStartY = event.touches[0].clientY; }, { passive: true });
-      document.querySelector('#scene').addEventListener('touchend', event => {
-        if (touchStartY !== null && touchStartY - event.changedTouches[0].clientY > 48) openTranscript();
-        touchStartY = null;
-      }, { passive: true });
-
-      document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') { closeDetail(); closeTranscript(); }
-      });
-
-      updateHeart();
-      updateArousal();
-      updateMovement();
-      updateVeil();
-      updateWatchStatus();
-    })();
-  </script>
-
-
-</body></html>
+  <script src="js/motion.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/demo.js"></script>
+  <script src="js/conversation.js"></script>
+  <script src="js/sheets.js"></script>
+  <script src="js/signals.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
