@@ -66,6 +66,10 @@ jobs:
             cp -a pages _site/pages
           fi
 
+          if [[ -d Demo ]]; then
+            cp -a Demo _site/Demo
+          fi
+
           touch _site/.nojekyll
 
       - name: Validate public artifact
@@ -74,6 +78,7 @@ jobs:
           set -euo pipefail
 
           test -f _site/index.html
+          test -f _site/Demo/HealthAI/index.html
           test -f _site/task-progress/index.html
           test -f _site/task-progress/assets/app.js
           test -f _site/task-progress/assets/report-model.js
