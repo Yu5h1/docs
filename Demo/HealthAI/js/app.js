@@ -1,4 +1,7 @@
 document.querySelector('#signalLayoutToggle').addEventListener('click', toggleSignalLayout);
+document.querySelector('#motionMode').addEventListener('change', event => {
+  document.documentElement.dataset.motion = event.target.value;
+});
 document.querySelector('#composer').addEventListener('submit', event => {
   event.preventDefault();
   sendMessage(input.value);

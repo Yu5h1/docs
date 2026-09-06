@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-motion="full">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -210,6 +210,15 @@
       <div class="control-group">
         <div class="control-label"><label for="veil">文字漸層淡出強度</label><output id="veilOut">0.82</output></div>
         <input id="veil" type="range" min="0.55" max="0.95" value="0.82" step="0.01">
+      </div>
+      <div class="control-group">
+        <label class="select-label" for="motionMode">動態效果
+          <select id="motionMode">
+            <option value="full" selected>開啟（Demo）</option>
+            <option value="system">跟隨系統</option>
+            <option value="off">關閉</option>
+          </select>
+        </label>
       </div>
       <div class="control-group">
         <span class="control-label">政策三態</span>

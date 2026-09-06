@@ -2,6 +2,10 @@
 const Motion = (() => {
   const running = new WeakMap();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  function shouldReduce() {
+    const mode = document.documentElement.dataset.motion || 'system';
+    return mode === 'off' || (mode === 'system' && reduced.matches);
+  }
   function cancel(owner) {
     const stop = running.get(owner);
     if (stop) stop();
@@ -9,7 +13,7 @@ const Motion = (() => {
   }
   function spring(owner, { from, to, velocity = 0, update, complete = () => {} }) {
     cancel(owner);
-    if (reduced.matches) { update(to); complete(); return; }
+    if (shouldReduce()) { update(to); complete(); return; }
     let position = from, speed = velocity, frame, last = null, elapsed = 0;
     running.set(owner, () => cancelAnimationFrame(frame));
     function tick(now) {
@@ -20,7 +24,7 @@ const Motion = (() => {
       elapsed += dt;
       speed += ((to - position) * 240 - speed * 29) * dt;
       position += speed * dt;
-      if (reduced.matches || (Math.abs(to - position) < .001 && Math.abs(speed) < .01) || elapsed > 2) {
+      if (shouldReduce() || (Math.abs(to - position) < .001 && Math.abs(speed) < .01) || elapsed > 2) {
         running.delete(owner); update(to); complete(); return;
       }
       update(position);
